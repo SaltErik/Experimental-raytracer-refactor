@@ -7,27 +7,28 @@ class Color {
         this.g = g;
         this.b = b;
     }
-    static scale(k, v) {
-        return new Color(k * v.r, k * v.g, k * v.b);
+    static scale(k, color) {
+        return new Color(k * color.r, k * color.g, k * color.b);
     }
-    static plus(v1, v2) {
-        return new Color(v1.r + v2.r, v1.g + v2.g, v1.b + v2.b);
+    static plus(first, second) {
+        return new Color(first.r + second.r, first.g + second.g, first.b + second.b);
     }
-    static times(v1, v2) {
-        return new Color(v1.r * v2.r, v1.g * v2.g, v1.b * v2.b);
+    static times(first, second) {
+        return new Color(first.r * second.r, first.g * second.g, first.b * second.b);
     }
     static white = new Color(1.0, 1.0, 1.0);
     static grey = new Color(0.5, 0.5, 0.5);
     static black = new Color(0.0, 0.0, 0.0);
     static background = Color.black;
     static defaultColor = Color.black;
-    static toDrawingColor(c) {
-        const legalize = (d) => (d > 1 ? 1 : d);
-        return {
-            r: Math.floor(legalize(c.r) * 255),
-            g: Math.floor(legalize(c.g) * 255),
-            b: Math.floor(legalize(c.b) * 255),
-        };
+    static legalize(d) {
+        return d > 1 ? 1 : d;
+    }
+    static toDrawingColor(color) {
+        const r = Math.floor(Color.legalize(color.r) * 255);
+        const g = Math.floor(Color.legalize(color.g) * 255);
+        const b = Math.floor(Color.legalize(color.b) * 255);
+        return new Color(r, g, b);
     }
 }
 export { Color };

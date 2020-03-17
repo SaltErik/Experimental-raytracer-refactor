@@ -4,15 +4,15 @@ import { Vector } from "./vector.js";
 
 const Surfaces = {
   shiny: {
-    diffuse(pos: Vector) {
+    diffuse(position: Vector) {
       return Color.white;
     },
 
-    specular(pos: Vector) {
+    specular(position: Vector) {
       return Color.grey;
     },
 
-    reflect(pos: Vector) {
+    reflect(position: Vector) {
       return 0.7;
     },
 
@@ -20,20 +20,20 @@ const Surfaces = {
   } as Surface,
 
   checkerboard: {
-    diffuse(pos: Vector) {
-      if ((Math.floor(pos.z) + Math.floor(pos.x)) % 2 !== 0) {
+    diffuse(position: Vector) {
+      if ((Math.floor(position.z) + Math.floor(position.x)) % 2 !== 0) {
         return Color.white;
       } else {
         return Color.black;
       }
     },
 
-    specular(pos: Vector) {
+    specular(position: Vector) {
       return Color.white;
     },
 
-    reflect(pos: Vector) {
-      if ((Math.floor(pos.z) + Math.floor(pos.x)) % 2 !== 0) {
+    reflect(position: Vector) {
+      if ((Math.floor(position.z) + Math.floor(position.x)) % 2 !== 0) {
         return 0.1;
       } else {
         return 0.7;

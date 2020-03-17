@@ -68,7 +68,7 @@ export class RayTracer {
         };
         for (let y = 0; y < screenHeight; y++) {
             for (let x = 0; x < screenWidth; x++) {
-                const color = this._traceRay({ start: scene.camera.pos, direction: getPoint(x, y, scene.camera) }, scene, 0);
+                const color = this._traceRay({ start: scene.camera.position, direction: getPoint(x, y, scene.camera) }, scene, 0);
                 const c = Color.toDrawingColor(color);
                 ctx.fillStyle = `rgb(${String(c.r)}, ${String(c.g)}, ${String(c.b)})`;
                 ctx.fillRect(x, y, 1, 1);

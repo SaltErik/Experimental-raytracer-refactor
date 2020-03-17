@@ -1,31 +1,31 @@
 import { Color } from "./color.js";
 const Surfaces = {
     shiny: {
-        diffuse(pos) {
+        diffuse(position) {
             return Color.white;
         },
-        specular(pos) {
+        specular(position) {
             return Color.grey;
         },
-        reflect(pos) {
+        reflect(position) {
             return 0.7;
         },
         roughness: 250,
     },
     checkerboard: {
-        diffuse(pos) {
-            if ((Math.floor(pos.z) + Math.floor(pos.x)) % 2 !== 0) {
+        diffuse(position) {
+            if ((Math.floor(position.z) + Math.floor(position.x)) % 2 !== 0) {
                 return Color.white;
             }
             else {
                 return Color.black;
             }
         },
-        specular(pos) {
+        specular(position) {
             return Color.white;
         },
-        reflect(pos) {
-            if ((Math.floor(pos.z) + Math.floor(pos.x)) % 2 !== 0) {
+        reflect(position) {
+            if ((Math.floor(position.z) + Math.floor(position.x)) % 2 !== 0) {
                 return 0.1;
             }
             else {

@@ -1,15 +1,17 @@
 import { Vector } from "./vector.js";
 class Camera {
-    pos;
+    position;
+    lookAt;
+    down = new Vector(0.0, -1.0, 0.0);
     forward;
     right;
     up;
-    constructor(pos, lookAt) {
-        this.pos = pos;
-        const down = new Vector(0.0, -1.0, 0.0);
-        this.forward = Vector.normal(Vector.minus(lookAt, this.pos));
-        this.right = Vector.times(1.5, Vector.normal(Vector.cross(this.forward, down)));
-        this.up = Vector.times(1.5, Vector.normal(Vector.cross(this.forward, this.right)));
+    constructor(position, lookAt) {
+        this.position = position;
+        this.lookAt = lookAt;
+        this.forward = Vector.normal(Vector.minus(this.lookAt, this.position));
+        this.right = Vector.times(1.5, Vector.normal(Vector.crossProduct(this.forward, this.down)));
+        this.up = Vector.times(1.5, Vector.normal(Vector.crossProduct(this.forward, this.right)));
     }
 }
 export { Camera };

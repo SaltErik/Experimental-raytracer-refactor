@@ -8,27 +8,45 @@ class Vector {
         this.z = z;
     }
     static times(k, vector) {
-        return new Vector(k * vector.x, k * vector.y, k * vector.z);
+        const x = k * vector.x;
+        const y = k * vector.y;
+        const z = k * vector.z;
+        return new Vector(x, y, z);
     }
     static minus(first, second) {
-        return new Vector(first.x - second.x, first.y - second.y, first.z - second.z);
+        const x = first.x - second.x;
+        const y = first.y - second.y;
+        const z = first.z - second.z;
+        return new Vector(x, y, z);
     }
     static plus(first, second) {
-        return new Vector(first.x + second.x, first.y + second.y, first.z + second.z);
+        const x = first.x + second.x;
+        const y = first.y + second.y;
+        const z = first.z + second.z;
+        return new Vector(x, y, z);
     }
     static dotProduct(first, second) {
-        return first.x * second.x + first.y * second.y + first.z * second.z;
+        const x = first.x * second.x;
+        const y = first.y * second.y;
+        const z = first.z * second.z;
+        return x + y + z;
     }
     static magnitude(vector) {
-        return Math.sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
+        const x = vector.x * vector.x;
+        const y = vector.y * vector.y;
+        const z = vector.z * vector.z;
+        return Math.sqrt(x + y + z);
     }
     static normal(vector) {
         const magnitude = Vector.magnitude(vector);
-        const div = magnitude === 0 ? Infinity : 1.0 / magnitude;
+        const div = !magnitude ? Infinity : 1.0 / magnitude;
         return Vector.times(div, vector);
     }
-    static cross(first, second) {
-        return new Vector(first.y * second.z - first.z * second.y, first.z * second.x - first.x * second.z, first.x * second.y - first.y * second.x);
+    static crossProduct(first, second) {
+        const x = first.y * second.z - first.z * second.y;
+        const y = first.z * second.x - first.x * second.z;
+        const z = first.x * second.y - first.y * second.x;
+        return new Vector(x, y, z);
     }
 }
 export { Vector };
