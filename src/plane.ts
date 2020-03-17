@@ -14,7 +14,7 @@ class Plane implements Thing {
     this.surface = surface;
   }
 
-  normal(this: Plane, pos: Vector): Vector {
+  normal(this: Plane, _pos: Vector): Vector {
     return this._norm;
   }
 

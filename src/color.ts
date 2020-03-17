@@ -1,47 +1,64 @@
+import { RGB } from "./declarations";
+
 class Color {
-  r: number;
+  static white: RGB = {
+    r: 1.0,
+    g: 1.0,
+    b: 1.0,
+  };
 
-  g: number;
+  static grey: RGB = {
+    r: 0.5,
+    g: 0.5,
+    b: 0.5,
+  };
 
-  b: number;
-
-  constructor(r: number, g: number, b: number) {
-    this.r = r;
-    this.g = g;
-    this.b = b;
-  }
-
-  static scale(k: number, color: Color) {
-    return new Color(k * color.r, k * color.g, k * color.b);
-  }
-
-  static plus(first: Color, second: Color) {
-    return new Color(first.r + second.r, first.g + second.g, first.b + second.b);
-  }
-
-  static times(first: Color, second: Color) {
-    return new Color(first.r * second.r, first.g * second.g, first.b * second.b);
-  }
-
-  static white = new Color(1.0, 1.0, 1.0);
-
-  static grey = new Color(0.5, 0.5, 0.5);
-
-  static black = new Color(0.0, 0.0, 0.0);
+  static black: RGB = {
+    r: 0.0,
+    g: 0.0,
+    b: 0.0,
+  };
 
   static background = Color.black;
 
   static defaultColor = Color.black;
 
-  static legalize(d: number) {
+  constructor() {}
+
+  static scale(k: number, color: RGB): RGB {
+    return {
+      r: k * color.r,
+      g: k * color.g,
+      b: k * color.b,
+    } as RGB;
+  }
+
+  static plus(first: RGB, second: RGB): RGB {
+    return {
+      r: first.r + second.r,
+      g: first.g + second.g,
+      b: first.b + second.b,
+    } as RGB;
+  }
+
+  static times(first: RGB, second: RGB): RGB {
+    return {
+      r: first.r * second.r,
+      g: first.g * second.g,
+      b: first.b * second.b,
+    } as RGB;
+  }
+
+  static legalize(d: number): number {
     return d > 1 ? 1 : d;
   }
 
-  static toDrawingColor(color: Color) {
-    const r: number = Math.floor(Color.legalize(color.r) * 255);
-    const g: number = Math.floor(Color.legalize(color.g) * 255);
-    const b: number = Math.floor(Color.legalize(color.b) * 255);
-    return new Color(r, g, b);
+  static toDrawingColor(color: RGB): RGB {
+    return {
+      r: Math.floor(Color.legalize(color.r) * 255),
+      g: Math.floor(Color.legalize(color.g) * 255),
+      b: Math.floor(Color.legalize(color.b) * 255),
+    } as RGB;
   }
 }
 

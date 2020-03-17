@@ -3,10 +3,10 @@ class Shiny {
     roughness = 250;
     specular = Color.grey;
     constructor() { }
-    diffuse(position) {
+    diffuse(_position) {
         return Color.white;
     }
-    reflect(position) {
+    reflect(_position) {
         return 0.7;
     }
 }

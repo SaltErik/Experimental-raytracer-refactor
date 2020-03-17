@@ -1,7 +1,6 @@
-import { Color } from "./color.js";
 import { Vector } from "./vector.js";
 
-export interface VeryFirstRay {
+export interface InitialRay {
   start: Vector;
   direction: Vector | null;
 }
@@ -11,6 +10,12 @@ export interface Ray {
   direction: Vector;
 }
 
+export interface RGB {
+  r: number;
+  g: number;
+  b: number;
+}
+
 export interface Intersection {
   thing: Thing;
   ray: Ray;
@@ -18,8 +23,8 @@ export interface Intersection {
 }
 
 export interface Surface {
-  diffuse: (pos: Vector) => Color;
-  specular: Color;
+  diffuse: (pos: Vector) => RGB;
+  specular: RGB;
   reflect: (pos: Vector) => number;
   roughness: number;
 }
@@ -32,5 +37,5 @@ export interface Thing {
 
 export interface Light {
   position: Vector;
-  color: Color;
+  color: RGB;
 }

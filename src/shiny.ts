@@ -1,5 +1,5 @@
 import { Color } from "./color.js";
-import { Surface } from "./declarations.js";
+import { RGB, Surface } from "./declarations.js";
 import { Vector } from "./vector.js";
 
 class Shiny implements Surface {
@@ -9,11 +9,11 @@ class Shiny implements Surface {
 
   constructor() {}
 
-  diffuse(this: Shiny, position: Vector): Color {
+  diffuse(this: Shiny, _position: Vector): RGB {
     return Color.white;
   }
 
-  reflect(this: Shiny, position: Vector): number {
+  reflect(this: Shiny, _position: Vector): number {
     return 0.7;
   }
 }

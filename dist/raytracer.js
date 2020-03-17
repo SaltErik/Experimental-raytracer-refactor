@@ -83,7 +83,6 @@ export class RayTracer {
         return Vector.normal(Vector.plus(camera.forward, Vector.plus(Vector.times(this._recenterX(x), camera.right), Vector.times(this._recenterY(y), camera.up))));
     }
     render(scene, context) {
-        console.time("render");
         const { camera } = scene;
         const { position } = camera;
         const ray = {
@@ -100,6 +99,5 @@ export class RayTracer {
                 context.fillRect(x, y, 1, 1);
             }
         }
-        console.timeEnd("render");
     }
 }

@@ -8,7 +8,7 @@ class Plane {
         this.offset = offset;
         this.surface = surface;
     }
-    normal(pos) {
+    normal(_pos) {
         return this._norm;
     }
     intersect(ray) {

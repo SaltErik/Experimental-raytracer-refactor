@@ -1,6 +1,6 @@
 import { Camera } from "./camera.js";
 import { Color } from "./color.js";
-import { Intersection, Light, Ray, Thing, VeryFirstRay } from "./declarations.js";
+import { Intersection, Light, Ray, Thing, InitialRay, RGB } from "./declarations.js";
 import { Scene } from "./scene.js";
 import { Vector } from "./vector.js";
 
@@ -39,14 +39,14 @@ export class RayTracer {
     return intersection.distance;
   }
 
-  private _traceRay(this: RayTracer, ray: Ray, scene: Scene, depth: number): Color {
+  private _traceRay(this: RayTracer, ray: Ray, scene: Scene, depth: number): RGB {
     const intersection: Intersection | null = this._intersections(ray, scene);
     if (!intersection) return Color.background;
 
     return this._shade(intersection, scene, depth);
   }
 
-  private _shade(this: RayTracer, intersection: Intersection, scene: Scene, depth: number): Color {
+  private _shade(this: RayTracer, intersection: Intersection, scene: Scene, depth: number): RGB {
     const direction = intersection.ray.direction;
     const position = Vector.plus(Vector.times(intersection.distance, direction), intersection.ray.start);
     const normal = intersection.thing.normal(position);
@@ -56,7 +56,7 @@ export class RayTracer {
     return Color.plus(naturalColor, reflectedColor);
   }
 
-  private _getReflectionColor(this: RayTracer, thing: Thing, position: Vector, reflectionDirection: Vector, scene: Scene, depth: number): Color {
+  private _getReflectionColor(this: RayTracer, thing: Thing, position: Vector, reflectionDirection: Vector, scene: Scene, depth: number): RGB {
     const ray: Ray = {
       start: position,
       direction: reflectionDirection,
@@ -64,8 +64,8 @@ export class RayTracer {
     return Color.scale(thing.surface.reflect(position), this._traceRay(ray, scene, depth + 1));
   }
 
-  private _getNaturalColor(this: RayTracer, thing: Thing, position: Vector, normal: Vector, reflectionDirection: Vector, scene: Scene): Color {
-    const addLight = (color: Color, light: Light) => {
+  private _getNaturalColor(this: RayTracer, thing: Thing, position: Vector, normal: Vector, reflectionDirection: Vector, scene: Scene): RGB {
+    const addLight = (color: RGB, light: Light) => {
       const ldis = Vector.minus(light.position, position);
       const livec = Vector.normal(ldis);
       const ray: Ray = {
@@ -100,10 +100,9 @@ export class RayTracer {
   }
 
   render(this: RayTracer, scene: Scene, context: CanvasRenderingContext2D): void {
-    console.time("render");
     const { camera } = scene;
     const { position } = camera;
-    const ray: VeryFirstRay = {
+    const ray: InitialRay = {
       start: position,
       direction: null,
     };
@@ -111,12 +110,11 @@ export class RayTracer {
     for (let y = 0; y < screenHeight; y++) {
       for (let x = 0; x < screenWidth; x++) {
         ray.direction = this._getPoint(x, y, camera);
-        const color: Color = this._traceRay(ray as Ray, scene, 0);
+        const color: RGB = this._traceRay(ray as Ray, scene, 0);
         const { r, g, b } = Color.toDrawingColor(color);
         context.fillStyle = `rgb(${r}, ${g}, ${b})`;
         context.fillRect(x, y, 1, 1);
       }
     }
-    console.timeEnd("render");
   }
 }

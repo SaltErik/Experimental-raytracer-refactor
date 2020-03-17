@@ -1,7 +1,6 @@
 import { Camera } from "./camera.js";
 import { Checkerboard } from "./checkerboard.js";
-import { Color } from "./color.js";
-import { Light, Thing } from "./declarations.js";
+import { Light, Thing, RGB } from "./declarations.js";
 import { Plane } from "./plane.js";
 import { RayTracer } from "./raytracer.js";
 import { Scene } from "./scene.js";
@@ -17,19 +16,35 @@ function defaultLights(): Light[] {
   return [
     {
       position: new Vector(-2.0, 2.5, 0.0),
-      color: new Color(0.49, 0.07, 0.07),
+      color: {
+        r: 0.49,
+        g: 0.07,
+        b: 0.07,
+      } as RGB,
     },
     {
       position: new Vector(1.5, 2.5, 1.5),
-      color: new Color(0.07, 0.07, 0.49),
+      color: {
+        r: 0.07,
+        g: 0.07,
+        b: 0.49,
+      } as RGB,
     },
     {
       position: new Vector(1.5, 2.5, -1.5),
-      color: new Color(0.07, 0.49, 0.071),
+      color: {
+        r: 0.07,
+        g: 0.49,
+        b: 0.07,
+      } as RGB,
     },
     {
       position: new Vector(0.0, 3.5, 0.0),
-      color: new Color(0.21, 0.21, 0.35),
+      color: {
+        r: 0.21,
+        g: 0.21,
+        b: 0.35,
+      } as RGB,
     },
   ];
 }
@@ -61,4 +76,6 @@ function init(): void {
   return rayTracer.render(scene, context);
 }
 
+console.time("fullRun");
 init();
+console.timeEnd("fullRun");

@@ -1,34 +1,52 @@
 class Color {
-    r;
-    g;
-    b;
-    constructor(r, g, b) {
-        this.r = r;
-        this.g = g;
-        this.b = b;
-    }
-    static scale(k, color) {
-        return new Color(k * color.r, k * color.g, k * color.b);
-    }
-    static plus(first, second) {
-        return new Color(first.r + second.r, first.g + second.g, first.b + second.b);
-    }
-    static times(first, second) {
-        return new Color(first.r * second.r, first.g * second.g, first.b * second.b);
-    }
-    static white = new Color(1.0, 1.0, 1.0);
-    static grey = new Color(0.5, 0.5, 0.5);
-    static black = new Color(0.0, 0.0, 0.0);
+    static white = {
+        r: 1.0,
+        g: 1.0,
+        b: 1.0,
+    };
+    static grey = {
+        r: 0.5,
+        g: 0.5,
+        b: 0.5,
+    };
+    static black = {
+        r: 0.0,
+        g: 0.0,
+        b: 0.0,
+    };
     static background = Color.black;
     static defaultColor = Color.black;
+    constructor() { }
+    static scale(k, color) {
+        return {
+            r: k * color.r,
+            g: k * color.g,
+            b: k * color.b,
+        };
+    }
+    static plus(first, second) {
+        return {
+            r: first.r + second.r,
+            g: first.g + second.g,
+            b: first.b + second.b,
+        };
+    }
+    static times(first, second) {
+        return {
+            r: first.r * second.r,
+            g: first.g * second.g,
+            b: first.b * second.b,
+        };
+    }
     static legalize(d) {
         return d > 1 ? 1 : d;
     }
     static toDrawingColor(color) {
-        const r = Math.floor(Color.legalize(color.r) * 255);
-        const g = Math.floor(Color.legalize(color.g) * 255);
-        const b = Math.floor(Color.legalize(color.b) * 255);
-        return new Color(r, g, b);
+        return {
+            r: Math.floor(Color.legalize(color.r) * 255),
+            g: Math.floor(Color.legalize(color.g) * 255),
+            b: Math.floor(Color.legalize(color.b) * 255),
+        };
     }
 }
 export { Color };
