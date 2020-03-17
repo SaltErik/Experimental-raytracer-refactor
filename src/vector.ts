@@ -4,7 +4,9 @@ import { XYZ } from "./declarations";
  *
  * Not to be confused with the `XYZ` interface, which specifies the type of object this class operates on. */
 class Vector {
-  constructor() {}
+  constructor() {
+    throw new TypeError(`${this.constructor.name} cannot be instantiated!`);
+  }
 
   static times(k: number, vector: XYZ): XYZ {
     return {
