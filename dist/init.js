@@ -7,22 +7,31 @@ import { Scene } from "./scene.js";
 import { Shiny } from "./shiny.js";
 import { Sphere } from "./sphere.js";
 function defaultThings() {
-    const plane = new Plane({
-        x: 0.0,
-        y: 1.0,
-        z: 0.0,
-    }, 0.0, new Checkerboard());
-    const sphere1 = new Sphere({
-        x: 0.0,
-        y: 1.0,
-        z: -0.25,
-    }, 1.0, new Shiny());
-    const sphere2 = new Sphere({
-        x: -1.0,
-        y: 0.5,
-        z: 1.5,
-    }, 0.5, new Shiny());
-    return [plane, sphere1, sphere2];
+    function plane() {
+        const norm = {
+            x: 0.0,
+            y: 1.0,
+            z: 0.0,
+        };
+        return new Plane(norm, 0.0, new Checkerboard());
+    }
+    function sphere1() {
+        const center = {
+            x: 0.0,
+            y: 1.0,
+            z: -0.25,
+        };
+        return new Sphere(center, 1.0, new Shiny());
+    }
+    function sphere2() {
+        const center = {
+            x: -1.0,
+            y: 0.5,
+            z: 1.5,
+        };
+        return new Sphere(center, 0.5, new Shiny());
+    }
+    return [plane(), sphere1(), sphere2()];
 }
 function defaultLights() {
     function lightOne() {
