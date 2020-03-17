@@ -15,7 +15,7 @@ export interface Intersection {
 
 export interface Surface {
   diffuse: (pos: Vector) => Color;
-  specular: (pos: Vector) => Color;
+  specular: Color;
   reflect: (pos: Vector) => number;
   roughness: number;
 }

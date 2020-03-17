@@ -1,11 +1,17 @@
+import { Camera } from "./camera.js";
 import { Color } from "./color.js";
 import { Intersection, Light, Ray, Scene, Thing } from "./declarations.js";
 import { Vector } from "./vector.js";
 
 export class RayTracer {
   private _maxDepth = 5;
+  screenWidth: number;
+  screenHeight: number;
 
-  constructor() {}
+  constructor(screenWidth: number, screenHeight: number) {
+    this.screenWidth = screenWidth;
+    this.screenHeight = screenHeight;
+  }
 
   private _intersections(this: RayTracer, ray: Ray, scene: Scene): Intersection | null {
     let closest: number = +Infinity;
@@ -48,14 +54,22 @@ export class RayTracer {
   }
 
   private _getReflectionColor(this: RayTracer, thing: Thing, position: Vector, reflectionDirection: Vector, scene: Scene, depth: number): Color {
-    return Color.scale(thing.surface.reflect(position), this._traceRay({ start: position, direction: reflectionDirection }, scene, depth + 1));
+    const ray: Ray = {
+      start: position,
+      direction: reflectionDirection,
+    };
+    return Color.scale(thing.surface.reflect(position), this._traceRay(ray, scene, depth + 1));
   }
 
   private _getNaturalColor(this: RayTracer, thing: Thing, position: Vector, normal: Vector, reflectionDirection: Vector, scene: Scene): Color {
     const addLight = (color: Color, light: Light) => {
       const ldis = Vector.minus(light.position, position);
       const livec = Vector.normal(ldis);
-      const neatIsect = this._testRay({ start: position, direction: livec }, scene);
+      const ray: Ray = {
+        start: position,
+        direction: livec,
+      };
+      const neatIsect = this._testRay(ray, scene);
       const isInShadow = !neatIsect ? false : neatIsect <= Vector.magnitude(ldis);
       if (isInShadow) {
         return color;
@@ -64,25 +78,38 @@ export class RayTracer {
         const lcolor = illum > 0 ? Color.scale(illum, light.color) : Color.defaultColor;
         const specular = Vector.dotProduct(livec, Vector.normal(reflectionDirection));
         const scolor = specular > 0 ? Color.scale(Math.pow(specular, thing.surface.roughness), light.color) : Color.defaultColor;
-        return Color.plus(color, Color.plus(Color.times(thing.surface.diffuse(position), lcolor), Color.times(thing.surface.specular(position), scolor)));
+        return Color.plus(color, Color.plus(Color.times(thing.surface.diffuse(position), lcolor), Color.times(thing.surface.specular, scolor)));
       }
     };
     return scene.lights.reduce(addLight, Color.defaultColor);
   }
 
-  render(this: RayTracer, scene: Scene, ctx: CanvasRenderingContext2D, screenWidth: number, screenHeight: number): void {
-    const getPoint = (x: number, y: number, camera: { forward: Vector; right: Vector; up: Vector }) => {
-      const recenterX = (x: number) => (x - screenWidth / 2.0) / 2.0 / screenWidth;
-      const recenterY = (y: number) => -(y - screenHeight / 2.0) / 2.0 / screenHeight;
-      return Vector.normal(Vector.plus(camera.forward, Vector.plus(Vector.times(recenterX(x), camera.right), Vector.times(recenterY(y), camera.up))));
-    };
-    for (let y = 0; y < screenHeight; y++) {
-      for (let x = 0; x < screenWidth; x++) {
-        const color = this._traceRay({ start: scene.camera.position, direction: getPoint(x, y, scene.camera) }, scene, 0);
-        const c = Color.toDrawingColor(color);
-        ctx.fillStyle = `rgb(${String(c.r)}, ${String(c.g)}, ${String(c.b)})`;
-        ctx.fillRect(x, y, 1, 1);
+  private _recenterX(x: number): number {
+    return (x - this.screenWidth / 2.0) / 2.0 / this.screenWidth;
+  }
+
+  private _recenterY(y: number): number {
+    return -(y - this.screenHeight / 2.0) / 2.0 / this.screenHeight;
+  }
+
+  private _getPoint(this: RayTracer, x: number, y: number, camera: Camera): Vector {
+    return Vector.normal(Vector.plus(camera.forward, Vector.plus(Vector.times(this._recenterX(x), camera.right), Vector.times(this._recenterY(y), camera.up))));
+  }
+
+  render(this: RayTracer, scene: Scene, context: CanvasRenderingContext2D): void {
+    console.time("render");
+    for (let y = 0; y < this.screenHeight; y++) {
+      for (let x = 0; x < this.screenWidth; x++) {
+        const ray: Ray = {
+          start: scene.camera.position,
+          direction: this._getPoint(x, y, scene.camera),
+        };
+        const color: Color = this._traceRay(ray, scene, 0);
+        const c: Color = Color.toDrawingColor(color);
+        context.fillStyle = `rgb(${String(c.r)}, ${String(c.g)}, ${String(c.b)})`;
+        context.fillRect(x, y, 1, 1);
       }
     }
+    console.timeEnd("render");
   }
 }

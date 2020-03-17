@@ -2,7 +2,12 @@ import { Color } from "./color.js";
 import { Vector } from "./vector.js";
 export class RayTracer {
     _maxDepth = 5;
-    constructor() { }
+    screenWidth;
+    screenHeight;
+    constructor(screenWidth, screenHeight) {
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
+    }
     _intersections(ray, scene) {
         let closest = +Infinity;
         let closestIntersection = null;
@@ -39,13 +44,21 @@ export class RayTracer {
         return Color.plus(naturalColor, reflectedColor);
     }
     _getReflectionColor(thing, position, reflectionDirection, scene, depth) {
-        return Color.scale(thing.surface.reflect(position), this._traceRay({ start: position, direction: reflectionDirection }, scene, depth + 1));
+        const ray = {
+            start: position,
+            direction: reflectionDirection,
+        };
+        return Color.scale(thing.surface.reflect(position), this._traceRay(ray, scene, depth + 1));
     }
     _getNaturalColor(thing, position, normal, reflectionDirection, scene) {
         const addLight = (color, light) => {
             const ldis = Vector.minus(light.position, position);
             const livec = Vector.normal(ldis);
-            const neatIsect = this._testRay({ start: position, direction: livec }, scene);
+            const ray = {
+                start: position,
+                direction: livec,
+            };
+            const neatIsect = this._testRay(ray, scene);
             const isInShadow = !neatIsect ? false : neatIsect <= Vector.magnitude(ldis);
             if (isInShadow) {
                 return color;
@@ -55,24 +68,34 @@ export class RayTracer {
                 const lcolor = illum > 0 ? Color.scale(illum, light.color) : Color.defaultColor;
                 const specular = Vector.dotProduct(livec, Vector.normal(reflectionDirection));
                 const scolor = specular > 0 ? Color.scale(Math.pow(specular, thing.surface.roughness), light.color) : Color.defaultColor;
-                return Color.plus(color, Color.plus(Color.times(thing.surface.diffuse(position), lcolor), Color.times(thing.surface.specular(position), scolor)));
+                return Color.plus(color, Color.plus(Color.times(thing.surface.diffuse(position), lcolor), Color.times(thing.surface.specular, scolor)));
             }
         };
         return scene.lights.reduce(addLight, Color.defaultColor);
     }
-    render(scene, ctx, screenWidth, screenHeight) {
-        const getPoint = (x, y, camera) => {
-            const recenterX = (x) => (x - screenWidth / 2.0) / 2.0 / screenWidth;
-            const recenterY = (y) => -(y - screenHeight / 2.0) / 2.0 / screenHeight;
-            return Vector.normal(Vector.plus(camera.forward, Vector.plus(Vector.times(recenterX(x), camera.right), Vector.times(recenterY(y), camera.up))));
-        };
-        for (let y = 0; y < screenHeight; y++) {
-            for (let x = 0; x < screenWidth; x++) {
-                const color = this._traceRay({ start: scene.camera.position, direction: getPoint(x, y, scene.camera) }, scene, 0);
+    _recenterX(x) {
+        return (x - this.screenWidth / 2.0) / 2.0 / this.screenWidth;
+    }
+    _recenterY(y) {
+        return -(y - this.screenHeight / 2.0) / 2.0 / this.screenHeight;
+    }
+    _getPoint(x, y, camera) {
+        return Vector.normal(Vector.plus(camera.forward, Vector.plus(Vector.times(this._recenterX(x), camera.right), Vector.times(this._recenterY(y), camera.up))));
+    }
+    render(scene, context) {
+        console.time("render");
+        for (let y = 0; y < this.screenHeight; y++) {
+            for (let x = 0; x < this.screenWidth; x++) {
+                const ray = {
+                    start: scene.camera.position,
+                    direction: this._getPoint(x, y, scene.camera),
+                };
+                const color = this._traceRay(ray, scene, 0);
                 const c = Color.toDrawingColor(color);
-                ctx.fillStyle = `rgb(${String(c.r)}, ${String(c.g)}, ${String(c.b)})`;
-                ctx.fillRect(x, y, 1, 1);
+                context.fillStyle = `rgb(${String(c.r)}, ${String(c.g)}, ${String(c.b)})`;
+                context.fillRect(x, y, 1, 1);
             }
         }
+        console.timeEnd("render");
     }
 }
