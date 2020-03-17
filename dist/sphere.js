@@ -2,14 +2,13 @@ import { Vector } from "./vector.js";
 class Sphere {
     center;
     radius;
+    radiusSquared;
     surface;
-    get radiusSquared() {
-        return this.radius * this.radius;
-    }
     constructor(center, radius, surface) {
         this.center = center;
         this.radius = radius;
         this.surface = surface;
+        this.radiusSquared = radius * radius;
         this.normal = this.normal.bind(this);
         this.intersect = this.intersect.bind(this);
     }

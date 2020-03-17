@@ -6,16 +6,15 @@ class Sphere implements Thing {
 
   radius: number;
 
-  surface: Surface;
+  radiusSquared: number;
 
-  get radiusSquared(this: Sphere) {
-    return this.radius * this.radius;
-  }
+  surface: Surface;
 
   constructor(center: XYZ, radius: number, surface: Surface) {
     this.center = center;
     this.radius = radius;
     this.surface = surface;
+    this.radiusSquared = radius * radius;
     this.normal = this.normal.bind(this);
     this.intersect = this.intersect.bind(this);
   }
