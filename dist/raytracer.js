@@ -4,9 +4,15 @@ export class RayTracer {
     _maxDepth = 5;
     screenWidth;
     screenHeight;
+    scene;
+    position;
+    normal;
+    reflectionDirection;
+    thing;
     constructor(screenWidth, screenHeight) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
+        this._addLight = this._addLight.bind(this);
     }
     _intersections(ray, scene) {
         let closest = +Infinity;
@@ -50,28 +56,48 @@ export class RayTracer {
         };
         return Color.scale(thing.surface.reflect(position), this._traceRay(ray, scene, depth + 1));
     }
-    _getNaturalColor(thing, position, normal, reflectionDirection, scene) {
-        const addLight = (color, light) => {
-            const ldis = Vector.minus(light.position, position);
-            const livec = Vector.normal(ldis);
-            const ray = {
-                start: position,
-                direction: livec,
-            };
-            const neatIsect = this._testRay(ray, scene);
-            const isInShadow = !neatIsect ? false : neatIsect <= Vector.magnitude(ldis);
-            if (isInShadow) {
-                return color;
-            }
-            else {
-                const illum = Vector.dotProduct(livec, normal);
-                const lcolor = illum > 0 ? Color.scale(illum, light.color) : Color.defaultColor;
-                const specular = Vector.dotProduct(livec, Vector.normal(reflectionDirection));
-                const scolor = specular > 0 ? Color.scale(Math.pow(specular, thing.surface.roughness), light.color) : Color.defaultColor;
-                return Color.plus(color, Color.plus(Color.times(thing.surface.diffuse(position), lcolor), Color.times(thing.surface.specular, scolor)));
-            }
+    _addLight(color, light) {
+        const lightDistance = Vector.minus(light.position, this.position);
+        const lightVector = Vector.normal(lightDistance);
+        const ray = {
+            start: this.position,
+            direction: lightVector,
         };
-        return scene.lights.reduce(addLight, Color.defaultColor);
+        const neatIntersection = this._testRay(ray, this.scene);
+        let isInShadow;
+        if (!neatIntersection) {
+            isInShadow = false;
+        }
+        else {
+            isInShadow = neatIntersection <= Vector.magnitude(lightDistance);
+        }
+        if (isInShadow)
+            return color;
+        const illumination = Vector.dotProduct(lightVector, this.normal);
+        let lightColor;
+        if (illumination > 0) {
+            lightColor = Color.scale(illumination, light.color);
+        }
+        else {
+            lightColor = Color.defaultColor;
+        }
+        const specular = Vector.dotProduct(lightVector, Vector.normal(this.reflectionDirection));
+        let specularColor;
+        if (specular > 0) {
+            specularColor = Color.scale(Math.pow(specular, this.thing.surface.roughness), light.color);
+        }
+        else {
+            specularColor = Color.defaultColor;
+        }
+        return Color.plus(color, Color.plus(Color.times(this.thing.surface.diffuse(this.position), lightColor), Color.times(this.thing.surface.specular, specularColor)));
+    }
+    _getNaturalColor(thing, position, normal, reflectionDirection, scene) {
+        this.position = position;
+        this.scene = scene;
+        this.normal = normal;
+        this.reflectionDirection = reflectionDirection;
+        this.thing = thing;
+        return scene.lights.reduce(this._addLight, Color.defaultColor);
     }
     _recenterX(x) {
         return (x - this.screenWidth / 2.0) / 2.0 / this.screenWidth;
@@ -82,10 +108,10 @@ export class RayTracer {
     _getPoint(x, y, camera) {
         return Vector.normal(Vector.plus(camera.forward, Vector.plus(Vector.times(this._recenterX(x), camera.right), Vector.times(this._recenterY(y), camera.up))));
     }
-    render(scene, context) {
+    render(context, scene) {
+        const { screenWidth, screenHeight } = this;
         const { camera } = scene;
         const { position } = camera;
-        const { screenWidth, screenHeight } = this;
         const ray = {
             start: position,
             direction: {

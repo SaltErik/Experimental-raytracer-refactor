@@ -116,26 +116,40 @@ function defaultCamera(): Camera {
 }
 
 function init(): void {
-  const canvas = document.createElement(`canvas`);
-  if (!canvas) throw new Error("Could not create canvas!");
+  const conflictingCanvas: HTMLCanvasElement | null = document.querySelector(`canvas`);
+  if (conflictingCanvas) {
+    throw new ReferenceError(`A canvas already exists!`);
+  }
+
+  const canvas: HTMLCanvasElement = document.createElement(`canvas`);
 
   const SAME: number = 1024 as const;
-
   canvas.width = SAME;
   canvas.height = SAME;
 
+  if (canvas.width !== canvas.height || SAME !== canvas.width) {
+    throw new TypeError(`Canvas width/height mismatch!`);
+  }
+
   document.body.appendChild(canvas);
+  const shouldExist: HTMLCanvasElement | null = document.querySelector(`canvas`);
+  if (!shouldExist) {
+    throw new ReferenceError(`Could not append canvas to body!`);
+  }
 
-  const context = canvas.getContext(`2d`);
-  if (!context) throw new Error("Could not get 2D context!");
-
-  const rayTracer = new RayTracer(canvas.width, canvas.height);
-  if (!rayTracer) throw new Error("Could not instantiate RayTracer!");
+  const context: CanvasRenderingContext2D | null = canvas.getContext(`2d`);
+  if (!context) {
+    throw new ReferenceError(`Could not get 2D context!`);
+  }
 
   const scene = new Scene(defaultThings(), defaultLights(), defaultCamera());
-  if (!scene) throw new Error("Could not create scene!");
+  if (!scene) {
+    throw new ReferenceError(`Could not create scene!`);
+  }
 
-  return rayTracer.render(scene, context);
+  const rayTracer: RayTracer = new RayTracer(canvas.width, canvas.height);
+
+  return rayTracer.render(context, scene);
 }
 
 console.time("fullRun");
