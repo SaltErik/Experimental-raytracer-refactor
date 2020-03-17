@@ -1,5 +1,8 @@
 import { XYZ } from "./declarations";
 
+ /** Houses all methods for operating on objects carrying height-, width-, and depth-information.
+ *
+ * Not to be confused with the `XYZ` interface, which specifies the type of object this class operates on. */
 class Vector {
   constructor() {}
 

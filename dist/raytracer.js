@@ -85,11 +85,15 @@ export class RayTracer {
     render(scene, context) {
         const { camera } = scene;
         const { position } = camera;
+        const { screenWidth, screenHeight } = this;
         const ray = {
             start: position,
-            direction: null,
+            direction: {
+                x: 0,
+                y: 0,
+                z: 0,
+            },
         };
-        const { screenWidth, screenHeight } = this;
         for (let y = 0; y < screenHeight; y++) {
             for (let x = 0; x < screenWidth; x++) {
                 ray.direction = this._getPoint(x, y, camera);

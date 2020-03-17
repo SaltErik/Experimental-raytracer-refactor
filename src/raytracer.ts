@@ -1,6 +1,6 @@
 import { Camera } from "./camera.js";
 import { Color } from "./color.js";
-import { InitialRay, Intersection, Ray, RGB, Thing, XYZ } from "./declarations.js";
+import { Intersection, Ray, RGB, Thing, XYZ } from "./declarations.js";
 import { Light } from "./light.js";
 import { Scene } from "./scene.js";
 import { Vector } from "./vector.js";
@@ -103,15 +103,19 @@ export class RayTracer {
   render(this: RayTracer, scene: Scene, context: CanvasRenderingContext2D): void {
     const { camera } = scene;
     const { position } = camera;
-    const ray: InitialRay = {
-      start: position,
-      direction: null,
-    };
     const { screenWidth, screenHeight } = this;
+    const ray: Ray = {
+      start: position,
+      direction: {
+        x: 0,
+        y: 0,
+        z: 0,
+      },
+    };
     for (let y = 0; y < screenHeight; y++) {
       for (let x = 0; x < screenWidth; x++) {
         ray.direction = this._getPoint(x, y, camera);
-        const color: RGB = this._traceRay(ray as Ray, scene, 0);
+        const color: RGB = this._traceRay(ray, scene, 0);
         const { r, g, b } = Color.toDrawingColor(color);
         context.fillStyle = `rgb(${r}, ${g}, ${b})`;
         context.fillRect(x, y, 1, 1);

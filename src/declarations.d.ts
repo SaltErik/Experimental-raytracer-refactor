@@ -1,14 +1,9 @@
-export interface InitialRay {
-  start: XYZ;
-  direction: XYZ | null;
-}
-
 export interface Ray {
   start: XYZ;
   direction: XYZ;
 }
 
-/** Denotes an anonymous value object carrying color information.
+/** Denotes an anonymous value object carrying red-, green- and blue-color information.
  *
  * Not to be confused with the `Color` class, which holds all methods for operating on `RGB` objects. */
 export interface RGB {
@@ -36,6 +31,9 @@ export interface Thing {
   surface: Surface;
 }
 
+/** Denotes an anonymous value object carrying height-, width-, and depth-information.
+ *
+ * Not to be confused with the `Vector` class, which holds all methods for operating on `XYZ` objects. */
 export interface XYZ {
   x: number;
   y: number;

@@ -1,8 +1,8 @@
 import { RGB } from "./declarations";
 
-/** Houses all methods for operating on objects carrying color information.
+/** Houses all methods for operating on objects carrying red-, green- and blue-color information.
  *
- * Not to be confused with the `RGB` interface, which signifies anonymous value objects carrying color information. */
+ * Not to be confused with the `RGB` interface, which specifies the type of object this class operates on. */
 class Color {
   static white: RGB = {
     r: 1.0,
