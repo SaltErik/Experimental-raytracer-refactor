@@ -84,15 +84,19 @@ export class RayTracer {
     }
     render(scene, context) {
         console.time("render");
-        for (let y = 0; y < this.screenHeight; y++) {
-            for (let x = 0; x < this.screenWidth; x++) {
-                const ray = {
-                    start: scene.camera.position,
-                    direction: this._getPoint(x, y, scene.camera),
-                };
+        const { camera } = scene;
+        const { position } = camera;
+        const ray = {
+            start: position,
+            direction: null,
+        };
+        const { screenWidth, screenHeight } = this;
+        for (let y = 0; y < screenHeight; y++) {
+            for (let x = 0; x < screenWidth; x++) {
+                ray.direction = this._getPoint(x, y, camera);
                 const color = this._traceRay(ray, scene, 0);
-                const c = Color.toDrawingColor(color);
-                context.fillStyle = `rgb(${String(c.r)}, ${String(c.g)}, ${String(c.b)})`;
+                const { r, g, b } = Color.toDrawingColor(color);
+                context.fillStyle = `rgb(${r}, ${g}, ${b})`;
                 context.fillRect(x, y, 1, 1);
             }
         }

@@ -2,6 +2,11 @@ import { Camera } from "./camera.js";
 import { Color } from "./color.js";
 import { Vector } from "./vector.js";
 
+export interface VeryFirstRay {
+  start: Vector;
+  direction: Vector | null;
+}
+
 export interface Ray {
   start: Vector;
   direction: Vector;
@@ -29,10 +34,4 @@ export interface Thing {
 export interface Light {
   position: Vector;
   color: Color;
-}
-
-export interface Scene {
-  things: Thing[];
-  lights: Light[];
-  camera: Camera;
 }

@@ -3,9 +3,9 @@ import { Surface } from "./declarations.js";
 import { Vector } from "./vector.js";
 
 class Shiny implements Surface {
-  roughness: number = 250;
+  roughness = 250;
 
-  specular: Color = Color.grey;
+  specular = Color.grey;
 
   constructor() {}
 
