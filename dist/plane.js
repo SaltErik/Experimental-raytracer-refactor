@@ -7,6 +7,8 @@ class Plane {
         this._norm = norm;
         this.offset = offset;
         this.surface = surface;
+        this.normal = this.normal.bind(this);
+        this.intersect = this.intersect.bind(this);
     }
     normal(_pos) {
         return this._norm;

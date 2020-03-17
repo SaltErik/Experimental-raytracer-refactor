@@ -6,7 +6,11 @@ class Checkerboard implements Surface {
 
   specular = Color.white;
 
-  constructor() {}
+  constructor() {
+    this.diffuse = this.diffuse.bind(this);
+    this.reflect = this.reflect.bind(this);
+    this._isEven = this._isEven.bind(this);
+  }
 
   diffuse(this: Checkerboard, position: XYZ): RGB {
     return this._isEven(position.z, position.x) ? Color.white : Color.black;

@@ -16,6 +16,8 @@ class Sphere implements Thing {
     this.center = center;
     this.radius = radius;
     this.surface = surface;
+    this.normal = this.normal.bind(this);
+    this.intersect = this.intersect.bind(this);
   }
 
   normal(this: Sphere, pos: XYZ): XYZ {
