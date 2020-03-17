@@ -1,4 +1,4 @@
-import { Color } from "./color";
+import { Color } from "./color.js";
 import { Surface } from "./surface.js";
 import { Vector } from "./vector.js";
 
