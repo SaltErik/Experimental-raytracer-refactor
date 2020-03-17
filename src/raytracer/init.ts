@@ -1,7 +1,7 @@
 import { Create } from "./create.js";
 import { RayTracer } from "./raytracer.js";
 
-const SAME: number = 1024 as const;
+const SAME: number = 2048 as const;
 
 const WIDTH: number = SAME;
 const HEIGHT: number = SAME;
