@@ -1,62 +1,58 @@
+import { XYZ } from "./declarations";
+
 class Vector {
-  x: number;
+  constructor() {}
 
-  y: number;
-
-  z: number;
-
-  constructor(x: number, y: number, z: number) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
+  static times(k: number, vector: XYZ): XYZ {
+    return {
+      x: k * vector.x,
+      y: k * vector.y,
+      z: k * vector.z,
+    } as XYZ;
   }
 
-  static times(k: number, vector: Vector): Vector {
-    const x = k * vector.x;
-    const y = k * vector.y;
-    const z = k * vector.z;
-    return new Vector(x, y, z);
+  static minus(first: XYZ, second: XYZ): XYZ {
+    return {
+      x: first.x - second.x,
+      y: first.y - second.y,
+      z: first.z - second.z,
+    } as XYZ;
   }
 
-  static minus(first: Vector, second: Vector): Vector {
-    const x = first.x - second.x;
-    const y = first.y - second.y;
-    const z = first.z - second.z;
-    return new Vector(x, y, z);
+  static plus(first: XYZ, second: XYZ): XYZ {
+    return {
+      x: first.x + second.x,
+      y: first.y + second.y,
+      z: first.z + second.z,
+    } as XYZ;
   }
 
-  static plus(first: Vector, second: Vector): Vector {
-    const x = first.x + second.x;
-    const y = first.y + second.y;
-    const z = first.z + second.z;
-    return new Vector(x, y, z);
-  }
-
-  static dotProduct(first: Vector, second: Vector): number {
+  static dotProduct(first: XYZ, second: XYZ): number {
     const x = first.x * second.x;
     const y = first.y * second.y;
     const z = first.z * second.z;
     return x + y + z;
   }
 
-  static magnitude(vector: Vector): number {
+  static magnitude(vector: XYZ): number {
     const x = vector.x * vector.x;
     const y = vector.y * vector.y;
     const z = vector.z * vector.z;
     return Math.sqrt(x + y + z);
   }
 
-  static normal(vector: Vector): Vector {
+  static normal(vector: XYZ): XYZ {
     const magnitude = Vector.magnitude(vector);
     const div = !magnitude ? Infinity : 1.0 / magnitude;
     return Vector.times(div, vector);
   }
 
-  static crossProduct(first: Vector, second: Vector) {
-    const x = first.y * second.z - first.z * second.y;
-    const y = first.z * second.x - first.x * second.z;
-    const z = first.x * second.y - first.y * second.x;
-    return new Vector(x, y, z);
+  static crossProduct(first: XYZ, second: XYZ): XYZ {
+    return {
+      x: first.y * second.z - first.z * second.y,
+      y: first.z * second.x - first.x * second.z,
+      z: first.x * second.y - first.y * second.x,
+    } as XYZ;
   }
 }
 

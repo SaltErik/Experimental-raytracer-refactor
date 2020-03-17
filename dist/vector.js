@@ -1,29 +1,25 @@
 class Vector {
-    x;
-    y;
-    z;
-    constructor(x, y, z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
+    constructor() { }
     static times(k, vector) {
-        const x = k * vector.x;
-        const y = k * vector.y;
-        const z = k * vector.z;
-        return new Vector(x, y, z);
+        return {
+            x: k * vector.x,
+            y: k * vector.y,
+            z: k * vector.z,
+        };
     }
     static minus(first, second) {
-        const x = first.x - second.x;
-        const y = first.y - second.y;
-        const z = first.z - second.z;
-        return new Vector(x, y, z);
+        return {
+            x: first.x - second.x,
+            y: first.y - second.y,
+            z: first.z - second.z,
+        };
     }
     static plus(first, second) {
-        const x = first.x + second.x;
-        const y = first.y + second.y;
-        const z = first.z + second.z;
-        return new Vector(x, y, z);
+        return {
+            x: first.x + second.x,
+            y: first.y + second.y,
+            z: first.z + second.z,
+        };
     }
     static dotProduct(first, second) {
         const x = first.x * second.x;
@@ -43,10 +39,11 @@ class Vector {
         return Vector.times(div, vector);
     }
     static crossProduct(first, second) {
-        const x = first.y * second.z - first.z * second.y;
-        const y = first.z * second.x - first.x * second.z;
-        const z = first.x * second.y - first.y * second.x;
-        return new Vector(x, y, z);
+        return {
+            x: first.y * second.z - first.z * second.y,
+            y: first.z * second.x - first.x * second.z,
+            z: first.x * second.y - first.y * second.x,
+        };
     }
 }
 export { Vector };

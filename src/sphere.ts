@@ -1,8 +1,8 @@
-import { Intersection, Ray, Surface, Thing } from "./declarations.js";
+import { Intersection, Ray, Surface, Thing, XYZ } from "./declarations.js";
 import { Vector } from "./vector.js";
 
 class Sphere implements Thing {
-  center: Vector;
+  center: XYZ;
 
   radius: number;
 
@@ -12,18 +12,18 @@ class Sphere implements Thing {
     return this.radius * this.radius;
   }
 
-  constructor(center: Vector, radius: number, surface: Surface) {
+  constructor(center: XYZ, radius: number, surface: Surface) {
     this.center = center;
     this.radius = radius;
     this.surface = surface;
   }
 
-  normal(this: Sphere, pos: Vector): Vector {
+  normal(this: Sphere, pos: XYZ): XYZ {
     return Vector.normal(Vector.minus(pos, this.center));
   }
 
   intersect(this: Sphere, ray: Ray): Intersection | null {
-    const eo: Vector = Vector.minus(this.center, ray.start);
+    const eo: XYZ = Vector.minus(this.center, ray.start);
 
     const value: number = Vector.dotProduct(eo, ray.direction);
 

@@ -1,6 +1,5 @@
 import { Color } from "./color.js";
-import { Surface, RGB } from "./declarations.js";
-import { Vector } from "./vector.js";
+import { RGB, Surface, XYZ } from "./declarations.js";
 
 class Checkerboard implements Surface {
   roughness = 150;
@@ -9,11 +8,11 @@ class Checkerboard implements Surface {
 
   constructor() {}
 
-  diffuse(this: Checkerboard, position: Vector): RGB {
+  diffuse(this: Checkerboard, position: XYZ): RGB {
     return this._isEven(position.z, position.x) ? Color.white : Color.black;
   }
 
-  reflect(this: Checkerboard, position: Vector): number {
+  reflect(this: Checkerboard, position: XYZ): number {
     return this._isEven(position.z, position.x) ? 0.1 : 0.7;
   }
 

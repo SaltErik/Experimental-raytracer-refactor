@@ -1,15 +1,16 @@
-import { Vector } from "./vector.js";
-
 export interface InitialRay {
-  start: Vector;
-  direction: Vector | null;
+  start: XYZ;
+  direction: XYZ | null;
 }
 
 export interface Ray {
-  start: Vector;
-  direction: Vector;
+  start: XYZ;
+  direction: XYZ;
 }
 
+/** Denotes an anonymous value object carrying color information.
+ *
+ * Not to be confused with the `Color` class, which holds all methods for operating on `RGB` objects. */
 export interface RGB {
   r: number;
   g: number;
@@ -23,19 +24,25 @@ export interface Intersection {
 }
 
 export interface Surface {
-  diffuse: (pos: Vector) => RGB;
+  diffuse: (pos: XYZ) => RGB;
   specular: RGB;
-  reflect: (pos: Vector) => number;
+  reflect: (pos: XYZ) => number;
   roughness: number;
 }
 
 export interface Thing {
   intersect: (ray: Ray) => Intersection | null;
-  normal: (pos: Vector) => Vector;
+  normal: (pos: XYZ) => XYZ;
   surface: Surface;
 }
 
 export interface Light {
-  position: Vector;
+  position: XYZ;
   color: RGB;
+}
+
+export interface XYZ {
+  x: number;
+  y: number;
+  z: number;
 }

@@ -1,6 +1,6 @@
 import { Camera } from "./camera.js";
 import { Color } from "./color.js";
-import { Intersection, Light, Ray, Thing, InitialRay, RGB } from "./declarations.js";
+import { InitialRay, Intersection, Light, Ray, RGB, Thing, XYZ } from "./declarations.js";
 import { Scene } from "./scene.js";
 import { Vector } from "./vector.js";
 
@@ -56,7 +56,7 @@ export class RayTracer {
     return Color.plus(naturalColor, reflectedColor);
   }
 
-  private _getReflectionColor(this: RayTracer, thing: Thing, position: Vector, reflectionDirection: Vector, scene: Scene, depth: number): RGB {
+  private _getReflectionColor(this: RayTracer, thing: Thing, position: XYZ, reflectionDirection: XYZ, scene: Scene, depth: number): RGB {
     const ray: Ray = {
       start: position,
       direction: reflectionDirection,
@@ -64,7 +64,7 @@ export class RayTracer {
     return Color.scale(thing.surface.reflect(position), this._traceRay(ray, scene, depth + 1));
   }
 
-  private _getNaturalColor(this: RayTracer, thing: Thing, position: Vector, normal: Vector, reflectionDirection: Vector, scene: Scene): RGB {
+  private _getNaturalColor(this: RayTracer, thing: Thing, position: XYZ, normal: XYZ, reflectionDirection: XYZ, scene: Scene): RGB {
     const addLight = (color: RGB, light: Light) => {
       const ldis = Vector.minus(light.position, position);
       const livec = Vector.normal(ldis);
@@ -95,7 +95,7 @@ export class RayTracer {
     return -(y - this.screenHeight / 2.0) / 2.0 / this.screenHeight;
   }
 
-  private _getPoint(this: RayTracer, x: number, y: number, camera: Camera): Vector {
+  private _getPoint(this: RayTracer, x: number, y: number, camera: Camera): XYZ {
     return Vector.normal(Vector.plus(camera.forward, Vector.plus(Vector.times(this._recenterX(x), camera.right), Vector.times(this._recenterY(y), camera.up))));
   }
 

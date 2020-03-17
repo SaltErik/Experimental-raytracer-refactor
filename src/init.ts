@@ -1,56 +1,116 @@
 import { Camera } from "./camera.js";
 import { Checkerboard } from "./checkerboard.js";
-import { Light, Thing, RGB } from "./declarations.js";
+import { Light, RGB, Thing, XYZ } from "./declarations.js";
 import { Plane } from "./plane.js";
 import { RayTracer } from "./raytracer.js";
 import { Scene } from "./scene.js";
 import { Shiny } from "./shiny.js";
 import { Sphere } from "./sphere.js";
-import { Vector } from "./vector.js";
 
 function defaultThings(): Thing[] {
-  return [new Plane(new Vector(0.0, 1.0, 0.0), 0.0, new Checkerboard()), new Sphere(new Vector(0.0, 1.0, -0.25), 1.0, new Shiny()), new Sphere(new Vector(-1.0, 0.5, 1.5), 0.5, new Shiny())];
+  const plane = new Plane(
+    {
+      x: 0.0,
+      y: 1.0,
+      z: 0.0,
+    } as XYZ,
+    0.0,
+    new Checkerboard()
+  );
+
+  const sphere1 = new Sphere(
+    {
+      x: 0.0,
+      y: 1.0,
+      z: -0.25,
+    } as XYZ,
+    1.0,
+    new Shiny()
+  );
+
+  const sphere2 = new Sphere(
+    {
+      x: -1.0,
+      y: 0.5,
+      z: 1.5,
+    } as XYZ,
+    0.5,
+    new Shiny()
+  );
+
+  return [plane, sphere1, sphere2];
 }
 
 function defaultLights(): Light[] {
-  return [
-    {
-      position: new Vector(-2.0, 2.5, 0.0),
-      color: {
-        r: 0.49,
-        g: 0.07,
-        b: 0.07,
-      } as RGB,
-    },
-    {
-      position: new Vector(1.5, 2.5, 1.5),
-      color: {
-        r: 0.07,
-        g: 0.07,
-        b: 0.49,
-      } as RGB,
-    },
-    {
-      position: new Vector(1.5, 2.5, -1.5),
-      color: {
-        r: 0.07,
-        g: 0.49,
-        b: 0.07,
-      } as RGB,
-    },
-    {
-      position: new Vector(0.0, 3.5, 0.0),
-      color: {
-        r: 0.21,
-        g: 0.21,
-        b: 0.35,
-      } as RGB,
-    },
-  ];
+  const light1 = {
+    position: {
+      x: -2.0,
+      y: 2.5,
+      z: 0.0,
+    } as XYZ,
+    color: {
+      r: 0.49,
+      g: 0.07,
+      b: 0.07,
+    } as RGB,
+  };
+
+  const light2 = {
+    position: {
+      x: 1.5,
+      y: 2.5,
+      z: 1.5,
+    } as XYZ,
+    color: {
+      r: 0.07,
+      g: 0.07,
+      b: 0.49,
+    } as RGB,
+  };
+
+  const light3 = {
+    position: {
+      x: 1.5,
+      y: 2.5,
+      z: -1,
+    } as XYZ,
+    color: {
+      r: 0.07,
+      g: 0.49,
+      b: 0.07,
+    } as RGB,
+  };
+
+  const light4 = {
+    position: {
+      x: 0.0,
+      y: 3.5,
+      z: 0.0,
+    } as XYZ,
+    color: {
+      r: 0.21,
+      g: 0.21,
+      b: 0.35,
+    } as RGB,
+  };
+
+  return [light1, light2, light3, light4];
 }
 
 function defaultCamera(): Camera {
-  return new Camera(new Vector(3.0, 2.0, 4.0), new Vector(-1.0, 0.5, 0.0));
+  const position: XYZ = {
+    x: 3.0,
+    y: 2.0,
+    z: 4.0,
+  };
+
+  const lookAt: XYZ = {
+    x: -1.0,
+    y: 0.5,
+    z: 0.0,
+  };
+
+  return new Camera(position, lookAt);
 }
 
 function init(): void {

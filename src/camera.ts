@@ -1,19 +1,24 @@
 import { Vector } from "./vector.js";
+import { XYZ } from "./declarations.js";
 
 class Camera {
-  position: Vector;
+  position: XYZ;
 
-  lookAt: Vector;
+  lookAt: XYZ;
 
-  down: Vector = new Vector(0.0, -1.0, 0.0);
+  down: XYZ = {
+    x: 0.0,
+    y: -1.0,
+    z: 0.0,
+  };
 
-  forward: Vector;
+  forward: XYZ;
 
-  right: Vector;
+  right: XYZ;
 
-  up: Vector;
+  up: XYZ;
 
-  constructor(position: Vector, lookAt: Vector) {
+  constructor(position: XYZ, lookAt: XYZ) {
     this.position = position;
     this.lookAt = lookAt;
     this.forward = Vector.normal(Vector.minus(this.lookAt, this.position));

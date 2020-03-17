@@ -1,5 +1,8 @@
 import { RGB } from "./declarations";
 
+/** Houses all methods for operating on objects carrying color information.
+ *
+ * Not to be confused with the `RGB` interface, which signifies anonymous value objects carrying color information. */
 class Color {
   static white: RGB = {
     r: 1.0,

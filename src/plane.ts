@@ -1,20 +1,20 @@
-import { Intersection, Ray, Surface, Thing } from "./declarations.js";
+import { Intersection, Ray, Surface, Thing, XYZ } from "./declarations.js";
 import { Vector } from "./vector.js";
 
 class Plane implements Thing {
-  private _norm: Vector;
+  private _norm: XYZ;
 
   offset: number;
 
   surface: Surface;
 
-  constructor(norm: Vector, offset: number, surface: Surface) {
+  constructor(norm: XYZ, offset: number, surface: Surface) {
     this._norm = norm;
     this.offset = offset;
     this.surface = surface;
   }
 
-  normal(this: Plane, _pos: Vector): Vector {
+  normal(this: Plane, _pos: XYZ): XYZ {
     return this._norm;
   }
 
