@@ -8,13 +8,14 @@ class Sphere implements Thing {
 
   surface: Surface;
 
-  radiusSquared: number;
+  get radiusSquared(this: Sphere) {
+    return this.radius * this.radius;
+  }
 
   constructor(center: Vector, radius: number, surface: Surface) {
     this.center = center;
     this.radius = radius;
     this.surface = surface;
-    this.radiusSquared = radius * radius;
   }
 
   normal(this: Sphere, pos: Vector): Vector {
@@ -22,26 +23,28 @@ class Sphere implements Thing {
   }
 
   intersect(this: Sphere, ray: Ray): Intersection | null {
-    const eo = Vector.minus(this.center, ray.start);
+    const eo: Vector = Vector.minus(this.center, ray.start);
 
-    const v = Vector.dotProduct(eo, ray.direction);
+    const value: number = Vector.dotProduct(eo, ray.direction);
 
-    let distance = 0;
+    let distance: number = 0;
 
-    if (v >= 0) {
-      const disc = this.radiusSquared - (Vector.dotProduct(eo, eo) - v * v);
+    if (value >= 0) {
+      const disc = this.radiusSquared - (Vector.dotProduct(eo, eo) - value * value);
       if (disc >= 0) {
-        distance = v - Math.sqrt(disc);
+        distance = value - Math.sqrt(disc);
       }
     }
 
-    if (distance === 0) return null;
+    if (!distance) return null;
 
-    return {
+    const intersection: Intersection = {
       thing: this,
       ray,
       distance,
-    } as Intersection;
+    };
+
+    return intersection;
   }
 }
 

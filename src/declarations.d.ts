@@ -1,4 +1,3 @@
-import { Camera } from "./camera.js";
 import { Color } from "./color.js";
 import { Vector } from "./vector.js";
 

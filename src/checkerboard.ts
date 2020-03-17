@@ -14,19 +14,11 @@ class Checkerboard implements Surface {
   }
 
   diffuse(this: Checkerboard, position: Vector): Color {
-    if (this._isEven(position.z, position.x)) {
-      return Color.white;
-    } else {
-      return Color.black;
-    }
+    return this._isEven(position.z, position.x) ? Color.white : Color.black;
   }
 
   reflect(this: Checkerboard, position: Vector): number {
-    if (this._isEven(position.z, position.x)) {
-      return 0.1;
-    } else {
-      return 0.7;
-    }
+    return this._isEven(position.z, position.x) ? 0.1 : 0.7;
   }
 }
 

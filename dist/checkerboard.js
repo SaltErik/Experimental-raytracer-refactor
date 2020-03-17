@@ -7,20 +7,10 @@ class Checkerboard {
         return (Math.floor(z) + Math.floor(x)) % 2 !== 0;
     }
     diffuse(position) {
-        if (this._isEven(position.z, position.x)) {
-            return Color.white;
-        }
-        else {
-            return Color.black;
-        }
+        return this._isEven(position.z, position.x) ? Color.white : Color.black;
     }
     reflect(position) {
-        if (this._isEven(position.z, position.x)) {
-            return 0.1;
-        }
-        else {
-            return 0.7;
-        }
+        return this._isEven(position.z, position.x) ? 0.1 : 0.7;
     }
 }
 export { Checkerboard };

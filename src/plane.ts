@@ -25,11 +25,13 @@ class Plane implements Thing {
 
     const distance = (Vector.dotProduct(this._norm, ray.start) + this.offset) / -denom;
 
-    return {
+    const intersection: Intersection = {
       thing: this,
       ray,
       distance,
-    } as Intersection;
+    };
+
+    return intersection;
   }
 }
 

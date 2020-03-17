@@ -6,7 +6,9 @@ import { Vector } from "./vector.js";
 
 export class RayTracer {
   private _maxDepth = 5;
+
   screenWidth: number;
+
   screenHeight: number;
 
   constructor(screenWidth: number, screenHeight: number) {

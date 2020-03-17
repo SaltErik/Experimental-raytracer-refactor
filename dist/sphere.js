@@ -3,33 +3,35 @@ class Sphere {
     center;
     radius;
     surface;
-    radiusSquared;
+    get radiusSquared() {
+        return this.radius * this.radius;
+    }
     constructor(center, radius, surface) {
         this.center = center;
         this.radius = radius;
         this.surface = surface;
-        this.radiusSquared = radius * radius;
     }
     normal(pos) {
         return Vector.normal(Vector.minus(pos, this.center));
     }
     intersect(ray) {
         const eo = Vector.minus(this.center, ray.start);
-        const v = Vector.dotProduct(eo, ray.direction);
+        const value = Vector.dotProduct(eo, ray.direction);
         let distance = 0;
-        if (v >= 0) {
-            const disc = this.radiusSquared - (Vector.dotProduct(eo, eo) - v * v);
+        if (value >= 0) {
+            const disc = this.radiusSquared - (Vector.dotProduct(eo, eo) - value * value);
             if (disc >= 0) {
-                distance = v - Math.sqrt(disc);
+                distance = value - Math.sqrt(disc);
             }
         }
-        if (distance === 0)
+        if (!distance)
             return null;
-        return {
+        const intersection = {
             thing: this,
             ray,
             distance,
         };
+        return intersection;
     }
 }
 export { Sphere };
