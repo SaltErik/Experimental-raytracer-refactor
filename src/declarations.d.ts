@@ -36,11 +36,6 @@ export interface Thing {
   surface: Surface;
 }
 
-export interface Light {
-  position: XYZ;
-  color: RGB;
-}
-
 export interface XYZ {
   x: number;
   y: number;

@@ -1,5 +1,6 @@
 import { Camera } from "./camera.js";
 import { Checkerboard } from "./checkerboard.js";
+import { Light } from "./light.js";
 import { Plane } from "./plane.js";
 import { RayTracer } from "./raytracer.js";
 import { Scene } from "./scene.js";
@@ -24,55 +25,59 @@ function defaultThings() {
     return [plane, sphere1, sphere2];
 }
 function defaultLights() {
-    const light1 = {
-        position: {
+    function lightOne() {
+        const position = {
             x: -2.0,
             y: 2.5,
             z: 0.0,
-        },
-        color: {
+        };
+        const color = {
             r: 0.49,
             g: 0.07,
             b: 0.07,
-        },
-    };
-    const light2 = {
-        position: {
+        };
+        return new Light(position, color);
+    }
+    function lightTwo() {
+        const position = {
             x: 1.5,
             y: 2.5,
             z: 1.5,
-        },
-        color: {
+        };
+        const color = {
             r: 0.07,
             g: 0.07,
             b: 0.49,
-        },
-    };
-    const light3 = {
-        position: {
+        };
+        return new Light(position, color);
+    }
+    function lightThree() {
+        const position = {
             x: 1.5,
             y: 2.5,
             z: -1,
-        },
-        color: {
+        };
+        const color = {
             r: 0.07,
             g: 0.49,
             b: 0.07,
-        },
-    };
-    const light4 = {
-        position: {
+        };
+        return new Light(position, color);
+    }
+    function lightFour() {
+        const position = {
             x: 0.0,
             y: 3.5,
             z: 0.0,
-        },
-        color: {
+        };
+        const color = {
             r: 0.21,
             g: 0.21,
             b: 0.35,
-        },
-    };
-    return [light1, light2, light3, light4];
+        };
+        return new Light(position, color);
+    }
+    return [lightOne(), lightTwo(), lightThree(), lightFour()];
 }
 function defaultCamera() {
     const position = {
@@ -91,7 +96,7 @@ function init() {
     const canvas = document.createElement(`canvas`);
     if (!canvas)
         throw new Error("Could not create canvas!");
-    const SAME = 512;
+    const SAME = 1024;
     canvas.width = SAME;
     canvas.height = SAME;
     document.body.appendChild(canvas);

@@ -1,6 +1,7 @@
 import { Camera } from "./camera.js";
 import { Checkerboard } from "./checkerboard.js";
-import { Light, RGB, Thing, XYZ } from "./declarations.js";
+import { RGB, Thing, XYZ } from "./declarations.js";
+import { Light } from "./light.js";
 import { Plane } from "./plane.js";
 import { RayTracer } from "./raytracer.js";
 import { Scene } from "./scene.js";
@@ -42,59 +43,71 @@ function defaultThings(): Thing[] {
 }
 
 function defaultLights(): Light[] {
-  const light1 = {
-    position: {
+  function lightOne() {
+    const position: XYZ = {
       x: -2.0,
       y: 2.5,
       z: 0.0,
-    } as XYZ,
-    color: {
+    };
+
+    const color: RGB = {
       r: 0.49,
       g: 0.07,
       b: 0.07,
-    } as RGB,
-  };
+    };
 
-  const light2 = {
-    position: {
+    return new Light(position, color);
+  }
+
+  function lightTwo() {
+    const position: XYZ = {
       x: 1.5,
       y: 2.5,
       z: 1.5,
-    } as XYZ,
-    color: {
+    };
+
+    const color: RGB = {
       r: 0.07,
       g: 0.07,
       b: 0.49,
-    } as RGB,
-  };
+    };
 
-  const light3 = {
-    position: {
+    return new Light(position, color);
+  }
+
+  function lightThree() {
+    const position: XYZ = {
       x: 1.5,
       y: 2.5,
       z: -1,
-    } as XYZ,
-    color: {
+    };
+
+    const color: RGB = {
       r: 0.07,
       g: 0.49,
       b: 0.07,
-    } as RGB,
-  };
+    };
 
-  const light4 = {
-    position: {
+    return new Light(position, color);
+  }
+
+  function lightFour() {
+    const position: XYZ = {
       x: 0.0,
       y: 3.5,
       z: 0.0,
-    } as XYZ,
-    color: {
+    };
+
+    const color: RGB = {
       r: 0.21,
       g: 0.21,
       b: 0.35,
-    } as RGB,
-  };
+    };
 
-  return [light1, light2, light3, light4];
+    return new Light(position, color);
+  }
+
+  return [lightOne(), lightTwo(), lightThree(), lightFour()];
 }
 
 function defaultCamera(): Camera {
@@ -117,7 +130,7 @@ function init(): void {
   const canvas = document.createElement(`canvas`);
   if (!canvas) throw new Error("Could not create canvas!");
 
-  const SAME: number = 512 as const;
+  const SAME: number = 1024 as const;
 
   canvas.width = SAME;
   canvas.height = SAME;

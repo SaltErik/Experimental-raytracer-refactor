@@ -1,5 +1,6 @@
 import { Camera } from "./camera.js";
-import { Light, Thing } from "./declarations.js";
+import { Thing } from "./declarations.js";
+import { Light } from "./light.js";
 
 class Scene {
   things: Thing[];

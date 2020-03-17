@@ -1,6 +1,7 @@
 import { Camera } from "./camera.js";
 import { Color } from "./color.js";
-import { InitialRay, Intersection, Light, Ray, RGB, Thing, XYZ } from "./declarations.js";
+import { InitialRay, Intersection, Ray, RGB, Thing, XYZ } from "./declarations.js";
+import { Light } from "./light.js";
 import { Scene } from "./scene.js";
 import { Vector } from "./vector.js";
 
