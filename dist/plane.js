@@ -1,23 +1,23 @@
 import { Vector } from "./vector.js";
 class Plane {
-    _norm;
+    _normal;
     offset;
     surface;
-    constructor(norm, offset, surface) {
-        this._norm = norm;
+    constructor(normal, offset, surface) {
+        this._normal = normal;
         this.offset = offset;
         this.surface = surface;
         this.normal = this.normal.bind(this);
         this.intersect = this.intersect.bind(this);
     }
     normal(_pos) {
-        return this._norm;
+        return this._normal;
     }
     intersect(ray) {
-        const denom = Vector.dotProduct(this._norm, ray.direction);
+        const denom = Vector.dotProduct(this._normal, ray.direction);
         if (denom > 0)
             return null;
-        const distance = (Vector.dotProduct(this._norm, ray.start) + this.offset) / -denom;
+        const distance = (Vector.dotProduct(this._normal, ray.start) + this.offset) / -denom;
         return {
             thing: this,
             ray,
