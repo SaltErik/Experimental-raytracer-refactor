@@ -22,7 +22,25 @@ class Color {
     b: 0.0,
   };
 
-  static background = Color.black;
+  static red: RGB = {
+    r: 1.0,
+    g: 0.0,
+    b: 0.0,
+  };
+
+  static green: RGB = {
+    r: 0.0,
+    g: 1.0,
+    b: 0.0,
+  };
+
+  static blue: RGB = {
+    r: 0.0,
+    g: 0.0,
+    b: 1.0,
+  };
+
+  static backgroundColor = Color.black;
 
   static defaultColor = Color.black;
 

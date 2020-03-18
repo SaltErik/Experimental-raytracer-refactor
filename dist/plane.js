@@ -18,12 +18,11 @@ class Plane {
         if (denom > 0)
             return null;
         const distance = (Vector.dotProduct(this._norm, ray.start) + this.offset) / -denom;
-        const intersection = {
+        return {
             thing: this,
             ray,
             distance,
         };
-        return intersection;
     }
 }
 export { Plane };

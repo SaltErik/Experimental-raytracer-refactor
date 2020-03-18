@@ -1,5 +1,6 @@
 import { Camera } from "./camera.js";
 import { Checkerboard } from "./checkerboard.js";
+import { count_count, count_getNaturalColor, count_getPoint, count_getReflectionColor, count_intersections, count_recenterX, count_recenterY, count_render, count_shade, count_testRay, count_traceRay } from "./count.js";
 import { RGB, Thing, XYZ } from "./declarations.js";
 import { Light } from "./light.js";
 import { Plane } from "./plane.js";
@@ -123,7 +124,7 @@ function init(): void {
 
   const canvas: HTMLCanvasElement = document.createElement(`canvas`);
 
-  const SAME: number = 1024 as const;
+  const SAME: number = 512 as const;
   canvas.width = SAME;
   canvas.height = SAME;
 
@@ -155,3 +156,5 @@ function init(): void {
 console.time("fullRun");
 init();
 console.timeEnd("fullRun");
+
+console.table([`TOTAL CALLS: ${count_count}`, `_intersections: ${count_intersections}`, `_testRay: ${count_testRay}`, `_traceRay: ${count_traceRay}`, `_shade: ${count_shade}`, `_getReflectionColor: ${count_getReflectionColor}`, `_getNaturalColor: ${count_getNaturalColor}`, `_recenterX: ${count_recenterX}`, `_recenterY: ${count_recenterY}`, `_getPoint: ${count_getPoint}`, `render: ${count_render}`]);

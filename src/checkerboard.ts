@@ -20,6 +20,7 @@ class Checkerboard implements Surface {
     return this._isEven(position.z, position.x) ? 0.1 : 0.7;
   }
 
+  /** This function is awaiting a more reasonable name. */
   private _isEven(this: Checkerboard, z: number, x: number): boolean {
     return (Math.floor(z) + Math.floor(x)) % 2 !== 0;
   }

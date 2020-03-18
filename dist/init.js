@@ -1,5 +1,6 @@
 import { Camera } from "./camera.js";
 import { Checkerboard } from "./checkerboard.js";
+import { count_count, count_getNaturalColor, count_getPoint, count_getReflectionColor, count_intersections, count_recenterX, count_recenterY, count_render, count_shade, count_testRay, count_traceRay } from "./count.js";
 import { Light } from "./light.js";
 import { Plane } from "./plane.js";
 import { RayTracer } from "./raytracer.js";
@@ -107,7 +108,7 @@ function init() {
         throw new ReferenceError(`A canvas already exists!`);
     }
     const canvas = document.createElement(`canvas`);
-    const SAME = 1024;
+    const SAME = 512;
     canvas.width = SAME;
     canvas.height = SAME;
     if (canvas.width !== canvas.height || SAME !== canvas.width) {
@@ -132,3 +133,4 @@ function init() {
 console.time("fullRun");
 init();
 console.timeEnd("fullRun");
+console.table([`TOTAL CALLS: ${count_count}`, `_intersections: ${count_intersections}`, `_testRay: ${count_testRay}`, `_traceRay: ${count_traceRay}`, `_shade: ${count_shade}`, `_getReflectionColor: ${count_getReflectionColor}`, `_getNaturalColor: ${count_getNaturalColor}`, `_recenterX: ${count_recenterX}`, `_recenterY: ${count_recenterY}`, `_getPoint: ${count_getPoint}`, `render: ${count_render}`]);

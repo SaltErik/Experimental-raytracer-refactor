@@ -14,7 +14,22 @@ class Color {
         g: 0.0,
         b: 0.0,
     };
-    static background = Color.black;
+    static red = {
+        r: 1.0,
+        g: 0.0,
+        b: 0.0,
+    };
+    static green = {
+        r: 0.0,
+        g: 1.0,
+        b: 0.0,
+    };
+    static blue = {
+        r: 0.0,
+        g: 0.0,
+        b: 1.0,
+    };
+    static backgroundColor = Color.black;
     static defaultColor = Color.black;
     constructor() {
         throw new TypeError(`${this.constructor.name} cannot be instantiated!`);

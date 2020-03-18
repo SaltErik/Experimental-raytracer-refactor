@@ -39,13 +39,11 @@ class Sphere implements Thing {
 
     if (!distance) return null;
 
-    const intersection: Intersection = {
+    return {
       thing: this,
       ray,
       distance,
-    };
-
-    return intersection;
+    } as Intersection;
   }
 }
 

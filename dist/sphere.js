@@ -27,12 +27,11 @@ class Sphere {
         }
         if (!distance)
             return null;
-        const intersection = {
+        return {
             thing: this,
             ray,
             distance,
         };
-        return intersection;
     }
 }
 export { Sphere };
