@@ -31,9 +31,7 @@ class Color {
     };
     static backgroundColor = Color.black;
     static defaultColor = Color.black;
-    constructor() {
-        throw new TypeError(`${this.constructor.name} cannot be instantiated!`);
-    }
+    constructor() { }
     static scale(k, color) {
         return {
             r: k * color.r,

@@ -4,9 +4,7 @@ import { XYZ } from "./declarations";
  *
  * Not to be confused with the `XYZ` interface, which specifies the type of object this class operates on. */
 class Vector {
-  constructor() {
-    throw new TypeError(`${this.constructor.name} cannot be instantiated!`);
-  }
+  private constructor() {}
 
   static times(k: number, vector: XYZ): XYZ {
     return {
@@ -39,6 +37,7 @@ class Vector {
     return x + y + z;
   }
 
+  /** Magnitude is (in practice) the length of the vector. */
   static magnitude(vector: XYZ): number {
     const x = vector.x * vector.x;
     const y = vector.y * vector.y;

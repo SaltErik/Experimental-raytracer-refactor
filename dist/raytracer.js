@@ -1,12 +1,13 @@
 import { Color } from "./color.js";
+import { count } from "./count.js";
 import { Vector } from "./vector.js";
 export class RayTracer {
     _maxDepth = 5;
-    screenWidth;
-    screenHeight;
+    _screenWidth;
+    _screenHeight;
     constructor(screenWidth, screenHeight) {
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
+        this._screenWidth = screenWidth;
+        this._screenHeight = screenHeight;
         this._intersections = this._intersections.bind(this);
         this._testRay = this._testRay.bind(this);
         this._traceRay = this._traceRay.bind(this);
@@ -23,6 +24,7 @@ export class RayTracer {
         let closestIntersection = null;
         let i = scene.things.length;
         while (i--) {
+            count(`_intersections`);
             const intersection = scene.things[i].intersect(ray);
             if (intersection && intersection.distance < closest) {
                 closestIntersection = intersection;
@@ -32,27 +34,37 @@ export class RayTracer {
         return closestIntersection;
     }
     _testRay(ray, scene) {
+        count(`_testRay`);
         const intersection = this._intersections(ray, scene);
         if (!intersection)
             return null;
         return intersection.distance;
     }
     _traceRay(ray, scene, depth) {
+        count(`_traceRay`);
         const intersection = this._intersections(ray, scene);
         if (!intersection)
             return Color.backgroundColor;
         return this._shade(intersection, scene, depth);
     }
     _shade(intersection, scene, depth) {
+        count(`_shade`);
         const direction = intersection.ray.direction;
         const position = Vector.plus(Vector.times(intersection.distance, direction), intersection.ray.start);
         const normal = intersection.thing.normal(position);
         const reflectionDirection = Vector.minus(direction, Vector.times(2, Vector.times(Vector.dotProduct(normal, direction), normal)));
         const naturalColor = Color.plus(Color.backgroundColor, this._getNaturalColor(intersection.thing, position, normal, reflectionDirection, scene));
-        const reflectedColor = depth >= this._maxDepth ? Color.grey : this._getReflectionColor(intersection.thing, position, reflectionDirection, scene, depth);
+        let reflectedColor;
+        if (depth >= this._maxDepth) {
+            reflectedColor = Color.grey;
+        }
+        else {
+            reflectedColor = this._getReflectionColor(intersection.thing, position, reflectionDirection, scene, depth);
+        }
         return Color.plus(naturalColor, reflectedColor);
     }
     _getReflectionColor(thing, position, reflectionDirection, scene, depth) {
+        count(`_getReflectionColor`);
         const ray = {
             start: position,
             direction: reflectionDirection,
@@ -60,6 +72,7 @@ export class RayTracer {
         return Color.scale(thing.surface.reflect(position), this._traceRay(ray, scene, depth + 1));
     }
     _getNaturalColor(thing, position, normal, reflectionDirection, scene) {
+        count(`_getNaturalColor`);
         let naturalColor = Color.defaultColor;
         let i = scene.lights.length;
         while (i--) {
@@ -103,16 +116,19 @@ export class RayTracer {
         return naturalColor;
     }
     _recenterX(x) {
-        return (x - this.screenWidth / 2.0) / 2.0 / this.screenWidth;
+        count(`_recenterX`);
+        return (x - this._screenWidth / 2.0) / 2.0 / this._screenWidth;
     }
     _recenterY(y) {
-        return -(y - this.screenHeight / 2.0) / 2.0 / this.screenHeight;
+        count(`_recenterY`);
+        return -(y - this._screenHeight / 2.0) / 2.0 / this._screenHeight;
     }
     _getPoint(x, y, camera) {
+        count(`_getPoint`);
         return Vector.normal(Vector.plus(camera.forward, Vector.plus(Vector.times(this._recenterX(x), camera.right), Vector.times(this._recenterY(y), camera.up))));
     }
     render(context, scene) {
-        const { screenWidth, screenHeight } = this;
+        const { _screenWidth, _screenHeight } = this;
         const { camera } = scene;
         const { position } = camera;
         const ray = {
@@ -123,9 +139,10 @@ export class RayTracer {
                 z: 0,
             },
         };
-        let y = screenHeight;
+        let y = _screenWidth;
         while (y--) {
-            for (let x = 0; x < screenWidth; ++x) {
+            for (let x = 0; x < _screenHeight; ++x) {
+                count(`render`);
                 ray.direction = this._getPoint(x, y, camera);
                 const color = this._traceRay(ray, scene, 0);
                 const { r, g, b } = Color.toDrawingColor(color);
@@ -133,7 +150,7 @@ export class RayTracer {
                 context.fillRect(x, y, 1, 1);
             }
         }
-        console.log(`screenHeight: ${screenHeight}`);
-        console.log(`screenWidth: ${screenWidth}`);
+        console.log(`screenWidth: ${_screenWidth}`);
+        console.log(`screenHeight: ${_screenHeight}`);
     }
 }

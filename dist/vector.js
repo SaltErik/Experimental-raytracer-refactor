@@ -1,7 +1,5 @@
 class Vector {
-    constructor() {
-        throw new TypeError(`${this.constructor.name} cannot be instantiated!`);
-    }
+    constructor() { }
     static times(k, vector) {
         return {
             x: k * vector.x,

@@ -44,9 +44,7 @@ class Color {
 
   static defaultColor = Color.black;
 
-  constructor() {
-    throw new TypeError(`${this.constructor.name} cannot be instantiated!`);
-  }
+  private constructor() {}
 
   static scale(k: number, color: RGB): RGB {
     return {
