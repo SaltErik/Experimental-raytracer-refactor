@@ -12,6 +12,19 @@ export class RayTracer {
 
   private _screenHeight: number;
 
+  private _ray: Ray = {
+    start: {
+      x: 0,
+      y: 0,
+      z: 0,
+    },
+    direction: {
+      x: 0,
+      y: 0,
+      z: 0,
+    },
+  };
+
   constructor(screenWidth: number, screenHeight: number) {
     this._screenWidth = screenWidth;
     this._screenHeight = screenHeight;
@@ -160,22 +173,15 @@ export class RayTracer {
     const { _screenWidth, _screenHeight } = this;
     const { camera } = scene;
     const { position } = camera;
-    const ray: Ray = {
-      start: position as XYZ,
-      direction: {
-        x: 0,
-        y: 0,
-        z: 0,
-      } as XYZ,
-    };
+    this._ray.start = {...position};
     let y = _screenWidth;
     while (y--) {
       //if (y > _screenWidth / 2) continue; <--- embarassingly parallell?
       let x = _screenHeight;
-      while(x--) {
+      while (x--) {
         //count(`render`);
-        ray.direction = this._getPoint(x, y, camera);
-        const color: RGB = this._traceRay(ray, scene, 0);
+        this._ray.direction = this._getPoint(x, y, camera);
+        const color: RGB = this._traceRay(this._ray, scene, 0);
         const { r, g, b } = Color.toDrawingColor(color);
         context.fillStyle = `rgb(${r}, ${g}, ${b})`;
         context.fillRect(x, y, 1, 1);
