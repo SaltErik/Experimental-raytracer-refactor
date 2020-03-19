@@ -43,3 +43,5 @@ export interface XYZ {
   y: number;
   z: number;
 }
+
+type CountFunctionName = `_intersections` | `_testRay` | `_traceRay` | `_shade` | `_getReflectionColor` | `_getNaturalColor` | `_recenterX` | `_recenterY` | `_getPoint` | `render`;

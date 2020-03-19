@@ -8,9 +8,9 @@ export let count_recenterX = 0;
 export let count_recenterY = 0;
 export let count_getPoint = 0;
 export let count_render = 0;
-export let count_count = 0;
+export let count_TOTAL = 0;
 export function count(functionName) {
-    count_count++;
+    count_TOTAL++;
     switch (functionName) {
         case `_intersections`:
             count_intersections += 1;
@@ -43,6 +43,9 @@ export function count(functionName) {
             count_render += 1;
             break;
         default:
-            throw new ReferenceError(`You missed a function name buddy! I recieved: "${functionName}"!`);
+            return exhaustivelyTypeCheck(functionName);
     }
+}
+function exhaustivelyTypeCheck(x) {
+    throw new TypeError(`Unexpected object: ${x}`);
 }

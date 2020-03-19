@@ -1,3 +1,5 @@
+import { CountFunctionName } from "./declarations";
+
 export let count_intersections: number = 0;
 export let count_testRay: number = 0;
 export let count_traceRay: number = 0;
@@ -8,10 +10,10 @@ export let count_recenterX: number = 0;
 export let count_recenterY: number = 0;
 export let count_getPoint: number = 0;
 export let count_render: number = 0;
-export let count_count: number = 0;
+export let count_TOTAL: number = 0;
 
-export function count(functionName: string) {
-  count_count++;
+export function count(functionName: CountFunctionName): void {
+  count_TOTAL++;
   switch (functionName) {
     case `_intersections`:
       count_intersections += 1;
@@ -44,6 +46,11 @@ export function count(functionName: string) {
       count_render += 1;
       break;
     default:
-      throw new ReferenceError(`You missed a function name buddy! I recieved: "${functionName}"!`);
+      return exhaustivelyTypeCheck(functionName);
   }
+}
+
+/** The mere existence of this function induces exhaustive type checking for the `count` function above. */
+function exhaustivelyTypeCheck(x: never): never {
+  throw new TypeError(`Unexpected object: ${x}`);
 }
