@@ -121,10 +121,10 @@ export class RayTracer {
         return naturalColor;
     }
     _recenterX(x) {
-        return (x - this._screenWidth / 2.0) / 2.0 / this._screenWidth;
+        return (x - this._screenWidth / 2) / 2 / this._screenWidth;
     }
     _recenterY(y) {
-        return -(y - this._screenHeight / 2.0) / 2.0 / this._screenHeight;
+        return -(y - this._screenHeight / 2) / 2 / this._screenHeight;
     }
     _getPoint(x, y, camera) {
         return Vector.normal(Vector.plus(camera.forward, Vector.plus(Vector.times(this._recenterX(x), camera.right), Vector.times(this._recenterY(y), camera.up))));

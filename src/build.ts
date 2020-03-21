@@ -10,29 +10,29 @@ import { Sphere } from "./sphere.js";
 class Build {
   private static _plane(): Plane {
     const normal: XYZ = {
-      x: 0.0,
-      y: 1.0,
-      z: 0.0,
+      x: 0,
+      y: 1,
+      z: 0,
     };
-    const offset: number = 0.0;
+    const offset: number = 0;
     const surface: Surface = new Checkerboard();
     return new Plane(normal, offset, surface);
   }
 
   private static _sphere1(): Sphere {
     const center: XYZ = {
-      x: 0.0,
-      y: 1.0,
+      x: 0,
+      y: 1,
       z: -0.25,
     };
-    const radius: number = 1.0;
+    const radius: number = 1;
     const surface: Surface = new Shiny();
     return new Sphere(center, radius, surface);
   }
 
   private static _sphere2(): Sphere {
     const center: XYZ = {
-      x: -1.0,
+      x: -1,
       y: 0.5,
       z: 1.5,
     };
@@ -43,9 +43,9 @@ class Build {
 
   private static _lightOne(): Light {
     const position: XYZ = {
-      x: -2.0,
+      x: -2,
       y: 2.5,
-      z: 0.0,
+      z: 0,
     };
     const color: RGB = {
       r: 0.49,
@@ -85,9 +85,9 @@ class Build {
 
   private static _lightFour(): Light {
     const position: XYZ = {
-      x: 0.0,
+      x: 0,
       y: 3.5,
-      z: 0.0,
+      z: 0,
     };
     const color: RGB = {
       r: 0.21,
@@ -107,14 +107,14 @@ class Build {
 
   private static _defaultCamera(): Camera {
     const position: XYZ = {
-      x: 3.0,
-      y: 2.0,
-      z: 4.0,
+      x: 3,
+      y: 2,
+      z: 4,
     };
     const lookAt: XYZ = {
-      x: -1.0,
+      x: -1,
       y: 0.5,
-      z: 0.0,
+      z: 0,
     };
     return new Camera(position, lookAt);
   }
@@ -142,9 +142,9 @@ class Build {
 
   private static _randomPlane(): Plane {
     const normal: XYZ = {
-      x: 0.0,
-      y: 1.0,
-      z: 0.0,
+      x: 0,
+      y: 1,
+      z: 0,
     };
     const offset: number = Math.random();
     const surface = Math.random() > 0.5 ? new Checkerboard() : new Shiny();

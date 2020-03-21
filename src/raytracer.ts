@@ -156,12 +156,12 @@ export class RayTracer {
 
   private _recenterX(x: number): number {
     //count(`_recenterX`);
-    return (x - this._screenWidth / 2.0) / 2.0 / this._screenWidth;
+    return (x - this._screenWidth / 2) / 2 / this._screenWidth;
   }
 
   private _recenterY(y: number): number {
     //count(`_recenterY`);
-    return -(y - this._screenHeight / 2.0) / 2.0 / this._screenHeight;
+    return -(y - this._screenHeight / 2) / 2 / this._screenHeight;
   }
 
   private _getPoint(this: RayTracer, x: number, y: number, camera: Camera): XYZ {

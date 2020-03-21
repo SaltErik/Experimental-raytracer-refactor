@@ -10,7 +10,7 @@ function init(): void {
 
   const canvas: HTMLCanvasElement = document.createElement(`canvas`);
 
-  const SAME: number = 1024 as const;
+  const SAME: number = 2048 as const;
   canvas.width = SAME;
   canvas.height = SAME;
 

@@ -8,27 +8,27 @@ import { Sphere } from "./sphere.js";
 class Build {
     static _plane() {
         const normal = {
-            x: 0.0,
-            y: 1.0,
-            z: 0.0,
+            x: 0,
+            y: 1,
+            z: 0,
         };
-        const offset = 0.0;
+        const offset = 0;
         const surface = new Checkerboard();
         return new Plane(normal, offset, surface);
     }
     static _sphere1() {
         const center = {
-            x: 0.0,
-            y: 1.0,
+            x: 0,
+            y: 1,
             z: -0.25,
         };
-        const radius = 1.0;
+        const radius = 1;
         const surface = new Shiny();
         return new Sphere(center, radius, surface);
     }
     static _sphere2() {
         const center = {
-            x: -1.0,
+            x: -1,
             y: 0.5,
             z: 1.5,
         };
@@ -38,9 +38,9 @@ class Build {
     }
     static _lightOne() {
         const position = {
-            x: -2.0,
+            x: -2,
             y: 2.5,
-            z: 0.0,
+            z: 0,
         };
         const color = {
             r: 0.49,
@@ -77,9 +77,9 @@ class Build {
     }
     static _lightFour() {
         const position = {
-            x: 0.0,
+            x: 0,
             y: 3.5,
-            z: 0.0,
+            z: 0,
         };
         const color = {
             r: 0.21,
@@ -96,14 +96,14 @@ class Build {
     }
     static _defaultCamera() {
         const position = {
-            x: 3.0,
-            y: 2.0,
-            z: 4.0,
+            x: 3,
+            y: 2,
+            z: 4,
         };
         const lookAt = {
-            x: -1.0,
+            x: -1,
             y: 0.5,
-            z: 0.0,
+            z: 0,
         };
         return new Camera(position, lookAt);
     }
@@ -128,9 +128,9 @@ class Build {
     }
     static _randomPlane() {
         const normal = {
-            x: 0.0,
-            y: 1.0,
-            z: 0.0,
+            x: 0,
+            y: 1,
+            z: 0,
         };
         const offset = Math.random();
         const surface = Math.random() > 0.5 ? new Checkerboard() : new Shiny();

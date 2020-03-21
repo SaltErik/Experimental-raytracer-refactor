@@ -3,9 +3,9 @@ class Camera {
     position;
     lookAt;
     down = {
-        x: 0.0,
-        y: -1.0,
-        z: 0.0,
+        x: 0,
+        y: -1,
+        z: 0,
     };
     forward;
     right;

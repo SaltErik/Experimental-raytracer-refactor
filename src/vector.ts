@@ -47,7 +47,7 @@ class Vector {
 
   static normal(vector: XYZ): XYZ {
     const magnitude = Vector.magnitude(vector);
-    const div = !magnitude ? Infinity : 1.0 / magnitude;
+    const div = !magnitude ? Infinity : 1 / magnitude;
     return Vector.times(div, vector);
   }
 

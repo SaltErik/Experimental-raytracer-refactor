@@ -1,10 +1,10 @@
 {
-  "name": "expectedargs",
-  "version": "1.0.0",
+  "name": "experimental-raytracer-refactor",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "cls && npx tsc -w"
   },
   "type": "module",
   "keywords": [],
