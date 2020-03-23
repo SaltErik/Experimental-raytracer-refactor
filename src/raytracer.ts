@@ -1,6 +1,5 @@
 import { Camera } from "./camera.js";
 import { Color } from "./color.js";
-//import { count } from "./count.js";
 import { Intersection, Ray, RGB, Thing, XYZ } from "./declarations.js";
 import { Scene } from "./scene.js";
 import { Vector } from "./vector.js";
@@ -46,7 +45,6 @@ export class RayTracer {
 
     let i = scene.things.length;
     while (i--) {
-      //count(`_intersections`);
       const intersection = scene.things[i].intersect(ray);
       if (intersection && intersection.distance < closest) {
         closestIntersection = intersection;
@@ -57,7 +55,6 @@ export class RayTracer {
   }
 
   private _testRay(this: RayTracer, ray: Ray, scene: Scene): number | null {
-    //count(`_testRay`);
     const intersection = this._intersections(ray, scene);
     if (!intersection) return null;
 
@@ -65,7 +62,6 @@ export class RayTracer {
   }
 
   private _traceRay(this: RayTracer, ray: Ray, scene: Scene, depth: number): RGB {
-    //count(`_traceRay`);
     const intersection: Intersection | null = this._intersections(ray, scene);
     if (!intersection) return Color.backgroundColor;
 
@@ -73,7 +69,6 @@ export class RayTracer {
   }
 
   private _shade(this: RayTracer, intersection: Intersection, scene: Scene, depth: number): RGB {
-    //count(`_shade`);
     const direction: XYZ = intersection.ray.direction;
 
     const position: XYZ = Vector.plus(Vector.times(intersection.distance, direction), intersection.ray.start);
@@ -95,7 +90,6 @@ export class RayTracer {
   }
 
   private _getReflectionColor(this: RayTracer, thing: Thing, position: XYZ, reflectionDirection: XYZ, scene: Scene, depth: number): RGB {
-    //count(`_getReflectionColor`);
     const ray: Ray = {
       start: position,
       direction: reflectionDirection,
@@ -104,7 +98,6 @@ export class RayTracer {
   }
 
   private _getNaturalColor(this: RayTracer, thing: Thing, position: XYZ, normal: XYZ, reflectionDirection: XYZ, scene: Scene): RGB {
-    //count(`_getNaturalColor`);
     let naturalColor: RGB = Color.defaultColor;
 
     let i = scene.lights.length;
@@ -155,17 +148,14 @@ export class RayTracer {
   }
 
   private _recenterX(x: number): number {
-    //count(`_recenterX`);
     return (x - this._screenWidth / 2) / 2 / this._screenWidth;
   }
 
   private _recenterY(y: number): number {
-    //count(`_recenterY`);
     return -(y - this._screenHeight / 2) / 2 / this._screenHeight;
   }
 
   private _getPoint(this: RayTracer, x: number, y: number, camera: Camera): XYZ {
-    //count(`_getPoint`);
     return Vector.normal(Vector.plus(camera.forward, Vector.plus(Vector.times(this._recenterX(x), camera.right), Vector.times(this._recenterY(y), camera.up))));
   }
 
@@ -173,13 +163,14 @@ export class RayTracer {
     const { _screenWidth, _screenHeight } = this;
     const { camera } = scene;
     const { position } = camera;
-    this._ray.start = {...position};
+    this._ray.start = { ...position };
     let y = _screenWidth;
     while (y--) {
-      //if (y > _screenWidth / 2) continue; <--- embarassingly parallell?
+      //if (Math.random() > 0.5) continue; // <-- causes horizontal banding
+      //if (y < _screenWidth / 2) continue; // <--- embarassingly parallell?
       let x = _screenHeight;
       while (x--) {
-        //count(`render`);
+        //if (Math.random() > 0.5) continue; // <-- causes 'dead pixels'
         this._ray.direction = this._getPoint(x, y, camera);
         const color: RGB = this._traceRay(this._ray, scene, 0);
         const { r, g, b } = Color.toDrawingColor(color);

@@ -6,7 +6,7 @@ function init() {
         throw new ReferenceError(`A canvas already exists!`);
     }
     const canvas = document.createElement(`canvas`);
-    const SAME = 2048;
+    const SAME = 512;
     canvas.width = SAME;
     canvas.height = SAME;
     if (canvas.width !== canvas.height || SAME !== canvas.width) {
