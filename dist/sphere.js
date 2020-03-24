@@ -9,8 +9,6 @@ class Sphere {
         this.radius = radius;
         this.surface = surface;
         this.radiusSquared = radius * radius;
-        this.normal = this.normal.bind(this);
-        this.intersect = this.intersect.bind(this);
     }
     normal(pos) {
         return Vector.normal(Vector.minus(pos, this.center));

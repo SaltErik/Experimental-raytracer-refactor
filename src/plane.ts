@@ -12,8 +12,6 @@ class Plane implements Thing {
     this._normal = normal;
     this.offset = offset;
     this.surface = surface;
-    this.normal = this.normal.bind(this);
-    this.intersect = this.intersect.bind(this);
   }
 
   normal(this: Plane, _pos: XYZ): XYZ {

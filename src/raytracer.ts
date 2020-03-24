@@ -33,16 +33,6 @@ export class RayTracer {
   constructor(screenWidth: number, screenHeight: number) {
     this._screenWidth = screenWidth;
     this._screenHeight = screenHeight;
-    this._intersections = this._intersections.bind(this);
-    this._testRay = this._testRay.bind(this);
-    this._traceRay = this._traceRay.bind(this);
-    this._shade = this._shade.bind(this);
-    this._getReflectionColor = this._getReflectionColor.bind(this);
-    this._getNaturalColor = this._getNaturalColor.bind(this);
-    this._recenterX = this._recenterX.bind(this);
-    this._recenterY = this._recenterY.bind(this);
-    this._getPoint = this._getPoint.bind(this);
-    this.render = this.render.bind(this);
   }
 
   private _intersections(this: RayTracer, ray: Ray, scene: Scene): Intersection | null {

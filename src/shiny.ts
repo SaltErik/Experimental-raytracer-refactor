@@ -7,10 +7,7 @@ class Shiny implements Surface {
 
   specular = Color.grey;
 
-  constructor() {
-    this.diffuse = this.diffuse.bind(this);
-    this.reflect = this.reflect.bind(this);
-  }
+  constructor() {}
 
   diffuse(this: Shiny, _position: Vector): RGB {
     return Color.white;
