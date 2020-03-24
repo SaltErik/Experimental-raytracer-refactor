@@ -4,23 +4,6 @@ export class RayTracer {
     _maxDepth = 5;
     _screenWidth;
     _screenHeight;
-    _ray = {
-        start: {
-            x: 0,
-            y: 0,
-            z: 0,
-        },
-        direction: {
-            x: 0,
-            y: 0,
-            z: 0,
-        },
-    };
-    _color = {
-        r: 0,
-        g: 0,
-        b: 0,
-    };
     constructor(screenWidth, screenHeight) {
         this._screenWidth = screenWidth;
         this._screenHeight = screenHeight;
@@ -125,14 +108,27 @@ export class RayTracer {
         return Vector.normal(Vector.plus(camera.forward, Vector.plus(Vector.times(this._recenterX(x), camera.right), Vector.times(this._recenterY(y), camera.up))));
     }
     render(context, scene) {
-        this._ray.start = scene.camera.position;
+        const ray = {
+            start: scene.camera.position,
+            direction: {
+                x: 0,
+                y: 0,
+                z: 0,
+            },
+        };
+        let color = {
+            r: 0,
+            g: 0,
+            b: 0,
+        };
+        ray.start = scene.camera.position;
         let y = this._screenWidth;
         while (y--) {
             let x = this._screenHeight;
             while (x--) {
-                this._ray.direction = this._getPoint(x, y, scene.camera);
-                this._color = this._traceRay(this._ray, scene, 0);
-                const { r, g, b } = Color.toDrawingColor(this._color);
+                ray.direction = this._getPoint(x, y, scene.camera);
+                color = this._traceRay(ray, scene, 0);
+                const { r, g, b } = Color.toDrawingColor(color);
                 context.fillStyle = `rgb(${r}, ${g}, ${b})`;
                 context.fillRect(x, y, 1, 1);
             }

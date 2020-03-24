@@ -11,24 +11,24 @@ export class RayTracer {
 
   private _screenHeight: number;
 
-  private _ray: Ray = {
-    start: {
-      x: 0,
-      y: 0,
-      z: 0,
-    },
-    direction: {
-      x: 0,
-      y: 0,
-      z: 0,
-    },
-  };
+  // private _ray: Ray = {
+  //   start: {
+  //     x: 0,
+  //     y: 0,
+  //     z: 0,
+  //   },
+  //   direction: {
+  //     x: 0,
+  //     y: 0,
+  //     z: 0,
+  //   },
+  // };
 
-  private _color: RGB = {
-    r: 0,
-    g: 0,
-    b: 0,
-  };
+  // private _color: RGB = {
+  //   r: 0,
+  //   g: 0,
+  //   b: 0,
+  // };
 
   constructor(screenWidth: number, screenHeight: number) {
     this._screenWidth = screenWidth;
@@ -156,7 +156,20 @@ export class RayTracer {
   }
 
   render(this: RayTracer, context: CanvasRenderingContext2D, scene: Scene): void {
-    this._ray.start = scene.camera.position;
+    const ray: Ray = {
+      start: scene.camera.position,
+      direction: {
+        x: 0,
+        y: 0,
+        z: 0,
+      },
+    };
+    let color: RGB = {
+      r: 0,
+      g: 0,
+      b: 0,
+    };
+    ray.start = scene.camera.position;
     let y = this._screenWidth;
     while (y--) {
       //if (Math.random() > 0.5) continue; // <-- causes horizontal banding
@@ -164,9 +177,9 @@ export class RayTracer {
       let x = this._screenHeight;
       while (x--) {
         //if (Math.random() > 0.5) continue; // <-- causes 'dead pixels'
-        this._ray.direction = this._getPoint(x, y, scene.camera);
-        this._color = this._traceRay(this._ray, scene, 0);
-        const { r, g, b } = Color.toDrawingColor(this._color);
+        ray.direction = this._getPoint(x, y, scene.camera);
+        color = this._traceRay(ray, scene, 0);
+        const { r, g, b } = Color.toDrawingColor(color);
         context.fillStyle = `rgb(${r}, ${g}, ${b})`;
         context.fillRect(x, y, 1, 1);
       }
