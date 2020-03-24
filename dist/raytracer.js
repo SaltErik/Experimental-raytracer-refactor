@@ -110,17 +110,9 @@ export class RayTracer {
     render(context, scene) {
         const ray = {
             start: scene.camera.position,
-            direction: {
-                x: 0,
-                y: 0,
-                z: 0,
-            },
+            direction: [0, 0, 0],
         };
-        let color = {
-            r: 0,
-            g: 0,
-            b: 0,
-        };
+        let color = [0, 0, 0];
         ray.start = scene.camera.position;
         let y = this._screenWidth;
         while (y--) {
@@ -128,8 +120,8 @@ export class RayTracer {
             while (x--) {
                 ray.direction = this._getPoint(x, y, scene.camera);
                 color = this._traceRay(ray, scene, 0);
-                const { r, g, b } = Color.toDrawingColor(color);
-                context.fillStyle = `rgb(${r}, ${g}, ${b})`;
+                color = Color.toDrawingColor(color);
+                context.fillStyle = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
                 context.fillRect(x, y, 1, 1);
             }
         }

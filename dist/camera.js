@@ -2,11 +2,11 @@ import { Vector } from "./vector.js";
 class Camera {
     position;
     lookAt;
-    down = {
-        x: 0,
-        y: -1,
-        z: 0,
-    };
+    down = [
+        0,
+        -1,
+        0,
+    ];
     forward;
     right;
     up;

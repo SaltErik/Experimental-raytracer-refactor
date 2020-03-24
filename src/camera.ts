@@ -6,11 +6,11 @@ class Camera {
 
   lookAt: XYZ;
 
-  down: XYZ = {
-    x: 0,
-    y: -1,
-    z: 0,
-  };
+  down: XYZ = [
+    0,
+    -1,
+    0,
+  ];
 
   forward: XYZ;
 

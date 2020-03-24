@@ -8,9 +8,13 @@ export interface Ray {
  *
  * Not to be confused with the `Color` class, which holds all methods for operating on `RGB` objects. */
 export interface RGB {
-  r: number;
-  g: number;
-  b: number;
+  /** r */
+  0: number;
+  /** g */
+  1: number;
+  /** b */
+  2: number;
+  length: 3;
 }
 
 /** Denotes an intersection between a `Thing` and a `Ray` of light. */
@@ -39,7 +43,11 @@ export interface Thing {
  *
  * Not to be confused with the `Vector` class, which holds all methods for operating on `XYZ` objects. */
 export interface XYZ {
-  x: number;
-  y: number;
-  z: number;
+  /** x */
+  0: number;
+  /** y */
+  1: number;
+  /** z */
+  2: number;
+  length: 3;
 }

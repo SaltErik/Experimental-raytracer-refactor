@@ -9,11 +9,11 @@ class Checkerboard implements Surface {
   constructor() {}
 
   diffuse(this: Checkerboard, position: XYZ): RGB {
-    return this._isEven(position.z, position.x) ? Color.white : Color.black;
+    return this._isEven(position[2], position[0]) ? Color.white : Color.black;
   }
 
   reflect(this: Checkerboard, position: XYZ): number {
-    return this._isEven(position.z, position.x) ? 0.1 : 0.7;
+    return this._isEven(position[2], position[0]) ? 0.1 : 0.7;
   }
 
   /** This function is awaiting a more reasonable name. */

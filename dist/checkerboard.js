@@ -4,10 +4,10 @@ class Checkerboard {
     specular = Color.white;
     constructor() { }
     diffuse(position) {
-        return this._isEven(position.z, position.x) ? Color.white : Color.black;
+        return this._isEven(position[2], position[0]) ? Color.white : Color.black;
     }
     reflect(position) {
-        return this._isEven(position.z, position.x) ? 0.1 : 0.7;
+        return this._isEven(position[2], position[0]) ? 0.1 : 0.7;
     }
     _isEven(z, x) {
         return (Math.floor(z) + Math.floor(x)) % 2 !== 0;

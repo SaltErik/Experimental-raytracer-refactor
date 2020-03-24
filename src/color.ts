@@ -4,41 +4,41 @@ import { RGB } from "./declarations";
  *
  * Not to be confused with the `RGB` interface, which specifies the type of object this class operates on. */
 class Color {
-  static white: RGB = {
-    r: 1,
-    g: 1,
-    b: 1,
-  };
+  static white: RGB = [
+    1,
+    1,
+    1,
+  ];
 
-  static grey: RGB = {
-    r: 0.5,
-    g: 0.5,
-    b: 0.5,
-  };
+  static grey: RGB = [
+    0.5,
+    0.5,
+    0.5,
+  ];
 
-  static black: RGB = {
-    r: 0,
-    g: 0,
-    b: 0,
-  };
+  static black: RGB = [
+    0,
+    0,
+    0,
+  ];
 
-  static red: RGB = {
-    r: 1,
-    g: 0,
-    b: 0,
-  };
+  static red: RGB = [
+    1,
+    0,
+    0,
+  ];
 
-  static green: RGB = {
-    r: 0,
-    g: 1,
-    b: 0,
-  };
+  static green: RGB = [
+    0,
+    1,
+    0,
+  ];
 
-  static blue: RGB = {
-    r: 0,
-    g: 0,
-    b: 1,
-  };
+  static blue: RGB = [
+    0,
+    0,
+    1,
+  ];
 
   static backgroundColor = Color.black;
 
@@ -47,27 +47,27 @@ class Color {
   private constructor() {}
 
   static scale(k: number, color: RGB): RGB {
-    return {
-      r: k * color.r,
-      g: k * color.g,
-      b: k * color.b,
-    } as RGB;
+    return [
+      k * color[0],
+      k * color[1],
+      k * color[2],
+    ] as RGB;
   }
 
   static plus(first: RGB, second: RGB): RGB {
-    return {
-      r: first.r + second.r,
-      g: first.g + second.g,
-      b: first.b + second.b,
-    } as RGB;
+    return [
+      first[0] + second[0],
+      first[1] + second[1],
+      first[2] + second[2],
+    ] as RGB;
   }
 
   static times(first: RGB, second: RGB): RGB {
-    return {
-      r: first.r * second.r,
-      g: first.g * second.g,
-      b: first.b * second.b,
-    } as RGB;
+    return [
+      first[0] * second[0],
+      first[1] * second[1],
+      first[2] * second[2],
+    ] as RGB;
   }
 
   static legalize(d: number): number {
@@ -75,11 +75,11 @@ class Color {
   }
 
   static toDrawingColor(color: RGB): RGB {
-    return {
-      r: Math.floor(Color.legalize(color.r) * 255),
-      g: Math.floor(Color.legalize(color.g) * 255),
-      b: Math.floor(Color.legalize(color.b) * 255),
-    } as RGB;
+    return [
+      Math.floor(Color.legalize(color[0]) * 255),
+      Math.floor(Color.legalize(color[1]) * 255),
+      Math.floor(Color.legalize(color[2]) * 255),
+    ] as RGB;
   }
 }
 
