@@ -11,25 +11,6 @@ export class RayTracer {
 
   private _screenHeight: number;
 
-  // private _ray: Ray = {
-  //   start: {
-  //     x: 0,
-  //     y: 0,
-  //     z: 0,
-  //   },
-  //   direction: {
-  //     x: 0,
-  //     y: 0,
-  //     z: 0,
-  //   },
-  // };
-
-  // private _color: RGB = {
-  //   r: 0,
-  //   g: 0,
-  //   b: 0,
-  // };
-
   constructor(screenWidth: number, screenHeight: number) {
     this._screenWidth = screenWidth;
     this._screenHeight = screenHeight;
