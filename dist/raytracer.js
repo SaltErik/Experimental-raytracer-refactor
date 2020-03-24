@@ -135,7 +135,7 @@ export class RayTracer {
         return Vector.normal(Vector.plus(camera.forward, Vector.plus(Vector.times(this._recenterX(x), camera.right), Vector.times(this._recenterY(y), camera.up))));
     }
     render(context, scene) {
-        this._ray.start = { ...scene.camera.position };
+        this._ray.start = scene.camera.position;
         let y = this._screenWidth;
         while (y--) {
             let x = this._screenHeight;

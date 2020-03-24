@@ -166,7 +166,7 @@ export class RayTracer {
   }
 
   render(this: RayTracer, context: CanvasRenderingContext2D, scene: Scene): void {
-    this._ray.start = { ...scene.camera.position };
+    this._ray.start = scene.camera.position;
     let y = this._screenWidth;
     while (y--) {
       //if (Math.random() > 0.5) continue; // <-- causes horizontal banding
