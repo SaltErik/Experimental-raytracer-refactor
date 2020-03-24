@@ -16,6 +16,11 @@ export class RayTracer {
             z: 0,
         },
     };
+    _color = {
+        r: 0,
+        g: 0,
+        b: 0,
+    };
     constructor(screenWidth, screenHeight) {
         this._screenWidth = screenWidth;
         this._screenHeight = screenHeight;
@@ -130,22 +135,19 @@ export class RayTracer {
         return Vector.normal(Vector.plus(camera.forward, Vector.plus(Vector.times(this._recenterX(x), camera.right), Vector.times(this._recenterY(y), camera.up))));
     }
     render(context, scene) {
-        const { _screenWidth, _screenHeight } = this;
-        const { camera } = scene;
-        const { position } = camera;
-        this._ray.start = { ...position };
-        let y = _screenWidth;
+        this._ray.start = { ...scene.camera.position };
+        let y = this._screenWidth;
         while (y--) {
-            let x = _screenHeight;
+            let x = this._screenHeight;
             while (x--) {
-                this._ray.direction = this._getPoint(x, y, camera);
-                const color = this._traceRay(this._ray, scene, 0);
-                const { r, g, b } = Color.toDrawingColor(color);
+                this._ray.direction = this._getPoint(x, y, scene.camera);
+                this._color = this._traceRay(this._ray, scene, 0);
+                const { r, g, b } = Color.toDrawingColor(this._color);
                 context.fillStyle = `rgb(${r}, ${g}, ${b})`;
                 context.fillRect(x, y, 1, 1);
             }
         }
-        console.log(`screenWidth: ${_screenWidth}`);
-        console.log(`screenHeight: ${_screenHeight}`);
+        console.log(`screenWidth: ${this._screenWidth}`);
+        console.log(`screenHeight: ${this._screenHeight}`);
     }
 }

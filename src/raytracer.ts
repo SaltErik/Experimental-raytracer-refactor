@@ -24,6 +24,12 @@ export class RayTracer {
     },
   };
 
+  private _color: RGB = {
+    r: 0,
+    g: 0,
+    b: 0,
+  };
+
   constructor(screenWidth: number, screenHeight: number) {
     this._screenWidth = screenWidth;
     this._screenHeight = screenHeight;
@@ -160,25 +166,22 @@ export class RayTracer {
   }
 
   render(this: RayTracer, context: CanvasRenderingContext2D, scene: Scene): void {
-    const { _screenWidth, _screenHeight } = this;
-    const { camera } = scene;
-    const { position } = camera;
-    this._ray.start = { ...position };
-    let y = _screenWidth;
+    this._ray.start = { ...scene.camera.position };
+    let y = this._screenWidth;
     while (y--) {
       //if (Math.random() > 0.5) continue; // <-- causes horizontal banding
       //if (y < _screenWidth / 2) continue; // <--- embarassingly parallell?
-      let x = _screenHeight;
+      let x = this._screenHeight;
       while (x--) {
         //if (Math.random() > 0.5) continue; // <-- causes 'dead pixels'
-        this._ray.direction = this._getPoint(x, y, camera);
-        const color: RGB = this._traceRay(this._ray, scene, 0);
-        const { r, g, b } = Color.toDrawingColor(color);
+        this._ray.direction = this._getPoint(x, y, scene.camera);
+        this._color = this._traceRay(this._ray, scene, 0);
+        const { r, g, b } = Color.toDrawingColor(this._color);
         context.fillStyle = `rgb(${r}, ${g}, ${b})`;
         context.fillRect(x, y, 1, 1);
       }
     }
-    console.log(`screenWidth: ${_screenWidth}`);
-    console.log(`screenHeight: ${_screenHeight}`);
+    console.log(`screenWidth: ${this._screenWidth}`);
+    console.log(`screenHeight: ${this._screenHeight}`);
   }
 }
