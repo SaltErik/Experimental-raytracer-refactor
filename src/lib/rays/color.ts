@@ -50,6 +50,7 @@ class Color {
     return d > 1 ? 1 : d;
   }
 
+  /** Converts RGB to hex. */
   static toDrawingColor(color: RGB): RGB {
     return [
       Math.floor(Color.legalize(color[0]) * 255),
