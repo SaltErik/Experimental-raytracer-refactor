@@ -1,5 +1,5 @@
-import { Build } from "./build.js";
-import { RayTracer } from "./raytracer.js";
+import { RayTracer } from "./lib/raytracer.js";
+import { Build } from "./utils/build.js";
 function init() {
     const conflictingCanvas = document.querySelector(`canvas`);
     if (conflictingCanvas)
@@ -24,4 +24,7 @@ function init() {
     const rayTracer = new RayTracer(canvas.width, canvas.height);
     return rayTracer.render(context, scene);
 }
-window.addEventListener("load", init);
+function initSoon() {
+    setTimeout(init, 250);
+}
+window.addEventListener("load", initSoon);

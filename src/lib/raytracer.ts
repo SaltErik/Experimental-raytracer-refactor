@@ -1,8 +1,8 @@
-import { Camera } from "./camera.js";
-import { Color } from "./color.js";
-import { Intersection, Ray, RGB, Thing, XYZ } from "./declarations.js";
-import { Scene } from "./scene.js";
-import { Vector } from "./vector.js";
+import { Intersection, Ray, RGB, Thing, XYZ } from "../typings/declarations.js";
+import { Vector } from "./maths/vector.js";
+import { Color } from "./rays/color.js";
+import { Camera } from "./room/camera.js";
+import { Scene } from "./room/scene.js";
 
 export class RayTracer {
   private _maxDepth = 5;

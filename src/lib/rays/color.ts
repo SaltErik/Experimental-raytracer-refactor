@@ -1,44 +1,20 @@
-import { RGB } from "./declarations";
+import { RGB } from "../../typings/declarations.js";
 
 /** Houses all methods for operating on objects carrying red-, green- and blue-color information.
  *
  * Not to be confused with the `RGB` interface, which specifies the type of object this class operates on. */
 class Color {
-  static white: RGB = [
-    1,
-    1,
-    1,
-  ];
+  static white: RGB = [1, 1, 1];
 
-  static grey: RGB = [
-    0.5,
-    0.5,
-    0.5,
-  ];
+  static grey: RGB = [0.5, 0.5, 0.5];
 
-  static black: RGB = [
-    0,
-    0,
-    0,
-  ];
+  static black: RGB = [0, 0, 0];
 
-  static red: RGB = [
-    1,
-    0,
-    0,
-  ];
+  static red: RGB = [1, 0, 0];
 
-  static green: RGB = [
-    0,
-    1,
-    0,
-  ];
+  static green: RGB = [0, 1, 0];
 
-  static blue: RGB = [
-    0,
-    0,
-    1,
-  ];
+  static blue: RGB = [0, 0, 1];
 
   static backgroundColor = Color.black;
 

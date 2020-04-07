@@ -1,16 +1,12 @@
-import { Vector } from "./vector.js";
-import { XYZ } from "./declarations.js";
+import { XYZ } from "../../typings/declarations.js";
+import { Vector } from "../maths/vector.js";
 
 class Camera {
   position: XYZ;
 
   lookAt: XYZ;
 
-  down: XYZ = [
-    0,
-    -1,
-    0,
-  ];
+  down: XYZ = [0, -1, 0];
 
   forward: XYZ;
 

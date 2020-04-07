@@ -1,5 +1,5 @@
-import { Color } from "./color.js";
-import { RGB, Surface, XYZ } from "./declarations.js";
+import { RGB, Surface, XYZ } from "../../typings/declarations.js";
+import { Color } from "../rays/color.js";
 
 class Checkerboard implements Surface {
   roughness = 150;

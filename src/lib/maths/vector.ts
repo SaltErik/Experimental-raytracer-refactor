@@ -1,4 +1,4 @@
-import { XYZ } from "./declarations";
+import { XYZ } from "../../typings/declarations.js";
 
  /** Houses all methods for operating on objects carrying height-, width-, and depth-information.
  *

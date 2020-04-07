@@ -1,5 +1,5 @@
-import { Intersection, Ray, Surface, Thing, XYZ } from "./declarations.js";
-import { Vector } from "./vector.js";
+import { Intersection, Ray, Surface, Thing, XYZ } from "../../typings/declarations.js";
+import { Vector } from "../maths/vector.js";
 
 class Sphere implements Thing {
   center: XYZ;

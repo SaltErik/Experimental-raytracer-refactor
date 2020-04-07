@@ -1,6 +1,6 @@
-import { Color } from "./color.js";
-import { RGB, Surface } from "./declarations.js";
-import { Vector } from "./vector.js";
+import { RGB, Surface } from "../../typings/declarations.js";
+import { Vector } from "../maths/vector.js";
+import { Color } from "../rays/color.js";
 
 class Shiny implements Surface {
   roughness = 250;

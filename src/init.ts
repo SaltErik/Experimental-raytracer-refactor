@@ -1,5 +1,5 @@
-import { Build } from "./build.js";
-import { RayTracer } from "./raytracer.js";
+import { RayTracer } from "./lib/raytracer.js";
+import { Build } from "./utils/build.js";
 
 function init(): void {
   const conflictingCanvas: HTMLCanvasElement | null = document.querySelector(`canvas`);
@@ -29,4 +29,8 @@ function init(): void {
   return rayTracer.render(context, scene);
 }
 
-window.addEventListener("load", init);
+function initSoon() {
+  setTimeout(init, 250);
+}
+
+window.addEventListener("load", initSoon);
