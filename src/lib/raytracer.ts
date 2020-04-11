@@ -1,4 +1,4 @@
-import { Intersection, Ray, RGB, Thing, XYZ } from "../typings/declarations.js";
+import { Intersection, Ray, RGB, Thing, XYZ } from "../typings/declarations";
 import { Vector } from "./maths/vector.js";
 import { Color } from "./rays/color.js";
 import { Camera } from "./room/camera.js";

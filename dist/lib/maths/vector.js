@@ -35,7 +35,7 @@ class Vector {
     }
     static normal(vector) {
         const magnitude = Vector.magnitude(vector);
-        const div = !magnitude ? Infinity : magnitude * 1;
+        const div = !magnitude ? Infinity : 1 / magnitude;
         return Vector.times(div, vector);
     }
     static crossProduct(first, second) {

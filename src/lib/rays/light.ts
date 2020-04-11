@@ -1,4 +1,4 @@
-import { RGB, XYZ } from "../../typings/declarations.js";
+import { RGB, XYZ } from "../../typings/declarations";
 
 class Light {
   position: XYZ;

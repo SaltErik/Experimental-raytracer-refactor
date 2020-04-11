@@ -5,7 +5,7 @@ import { Plane } from "../lib/shapes/plane.js";
 import { Sphere } from "../lib/shapes/sphere.js";
 import { Checkerboard } from "../lib/surfaces/checkerboard.js";
 import { Shiny } from "../lib/surfaces/shiny.js";
-import { RGB, Surface, Thing, XYZ } from "../typings/declarations.js";
+import { RGB, Surface, Thing, XYZ } from "../typings/declarations";
 
 class Build {
   private static _plane(): Plane {

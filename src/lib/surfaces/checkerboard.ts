@@ -1,4 +1,4 @@
-import { RGB, Surface, XYZ } from "../../typings/declarations.js";
+import { RGB, Surface, XYZ } from "../../typings/declarations";
 import { Color } from "../rays/color.js";
 
 class Checkerboard implements Surface {

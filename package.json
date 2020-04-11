@@ -4,7 +4,7 @@
   "description": "Ongoing refactoring of a simple raytracer, written in TypeScript.",
   "main": "index.js",
   "scripts": {
-    "start": "npx tsc"
+    "start": "npx tsc && py ./host.py"
   },
   "type": "module",
   "keywords": [],

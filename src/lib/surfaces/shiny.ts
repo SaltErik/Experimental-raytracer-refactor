@@ -1,4 +1,4 @@
-import { RGB, Surface } from "../../typings/declarations.js";
+import { RGB, Surface } from "../../typings/declarations";
 import { Vector } from "../maths/vector.js";
 import { Color } from "../rays/color.js";
 

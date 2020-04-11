@@ -1,4 +1,4 @@
-import { RGB } from "../../typings/declarations.js";
+import { RGB } from "../../typings/declarations";
 
 /** Houses all methods for operating on objects carrying red-, green- and blue-color information.
  *

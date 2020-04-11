@@ -1,4 +1,4 @@
-import { XYZ } from "../../typings/declarations.js";
+import { XYZ } from "../../typings/declarations";
 import { Vector } from "../maths/vector.js";
 
 class Camera {

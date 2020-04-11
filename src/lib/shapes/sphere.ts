@@ -1,4 +1,4 @@
-import { Intersection, Ray, Surface, Thing, XYZ } from "../../typings/declarations.js";
+import { Intersection, Ray, Surface, Thing, XYZ } from "../../typings/declarations";
 import { Vector } from "../maths/vector.js";
 
 class Sphere implements Thing {
