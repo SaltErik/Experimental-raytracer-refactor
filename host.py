@@ -1,17 +1,26 @@
+#!/usr/bin/env python3
 import http.server
 import socketserver
 import os
 import platform
+import signal
+
+
+def keyboardInterruptHandler(signal, frame):
+    print(f"Shutting down...")
+    exit(0)
 
 
 def wipe():
-    if platform.system == "Windows":
+    if platform.system() == "Windows":
         os.system("cls")
     else:
         os.system("clear")
 
 
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, keyboardInterruptHandler)
+
     wipe()
 
     PORT = 8080
