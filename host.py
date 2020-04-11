@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     wipe()
 
-    PORT = 8080
+    PORT = 1337
 
     Handler = http.server.SimpleHTTPRequestHandler
 
@@ -43,5 +43,5 @@ if __name__ == "__main__":
 
     httpd = socketserver.TCPServer(("", PORT), Handler)
 
-    print(f"Serving at port {PORT}")
+    print(f"Serving from port {PORT}")
     httpd.serve_forever()
