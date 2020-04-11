@@ -27,7 +27,7 @@ const tallyBenchmarkCounter = (): void => {
 // const findBestTime = (time: number) => {};
 
 const refreshPage = (): void => {
-  location.reload();
+  window.location.reload();
 };
 
 const benchAgainIn = (seconds: number = 5): void => {
