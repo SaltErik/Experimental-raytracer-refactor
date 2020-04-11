@@ -1,6 +1,7 @@
 import { RayTracer } from "./lib/raytracer.js";
+import { benchmark } from "./utils/autoBench.js";
 import { Build } from "./utils/build.js";
-function init() {
+const init = (() => {
     const conflictingCanvas = document.querySelector(`canvas`);
     if (conflictingCanvas)
         throw new ReferenceError(`A canvas already exists!`);
@@ -22,13 +23,9 @@ function init() {
     if (!scene)
         throw new ReferenceError(`Could not create scene!`);
     const rayTracer = new RayTracer(canvas.width, canvas.height);
-    const before = performance.now();
-    rayTracer.render(context, scene);
-    const after = performance.now();
-    const elapsed = Math.floor(after - before);
-    console.log(`Rendered in ${elapsed} ms.`);
+    return rayTracer.render.bind(rayTracer, context, scene);
+})();
+function runSoon() {
+    setTimeout(benchmark.bind(null, init), 250);
 }
-function initSoon() {
-    setTimeout(init, 250);
-}
-window.addEventListener("load", initSoon);
+window.addEventListener("load", runSoon);
