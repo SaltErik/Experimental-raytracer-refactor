@@ -1,10 +1,9 @@
-const incrementBenchmarkCounter = () => {
+const incrementBenchmarkCounter = (): void => {
   let timesRan: number | string | null = localStorage.getItem(`timesRan`);
 
   if (timesRan === null) {
     localStorage.setItem(`timesRan`, `${0}`);
   }
-
   timesRan = Number.parseInt(localStorage.getItem(`timesRan`) as string);
 
   timesRan++;
@@ -14,7 +13,7 @@ const incrementBenchmarkCounter = () => {
   console.log(`Completed runs: ${timesRan}`);
 };
 
-const tallyBenchmarkCounter = () => {
+const tallyBenchmarkCounter = (): void => {
   let timesRan: number | string | null = localStorage.getItem(`timesRan`);
 
   if (timesRan === null) {
@@ -27,7 +26,7 @@ const tallyBenchmarkCounter = () => {
 
 // const findBestTime = (time: number) => {};
 
-const refreshPage = () => {
+const refreshPage = (): void => {
   location.reload();
 };
 
