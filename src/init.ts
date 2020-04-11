@@ -26,7 +26,11 @@ function init(): void {
 
   const rayTracer: RayTracer = new RayTracer(canvas.width, canvas.height);
 
-  return rayTracer.render(context, scene);
+  const before = performance.now();
+  rayTracer.render(context, scene);
+  const after = performance.now();
+  const elapsed = Math.floor(after - before);
+  console.log(`Rendered in ${elapsed} ms.`);
 }
 
 function initSoon() {
