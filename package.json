@@ -1,7 +1,7 @@
 {
   "name": "experimental-raytracer-refactor",
   "version": "0.0.1",
-  "description": "",
+  "description": "Ongoing refactoring of a simple raytracer, written in TypeScript.",
   "main": "index.js",
   "scripts": {
     "start": "npx tsc"
