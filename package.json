@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cls && npx tsc -w"
+    "start": "npx tsc"
   },
   "type": "module",
   "keywords": [],
