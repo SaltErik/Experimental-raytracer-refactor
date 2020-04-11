@@ -6,7 +6,7 @@ import platform
 import signal
 
 
-def keyboardInterruptHandler(signal, frame):
+def ctrl_c_handler(signal, frame):
     print(f"Shutting down...")
     exit(0)
 
@@ -19,7 +19,7 @@ def wipe():
 
 
 if __name__ == "__main__":
-    signal.signal(signal.SIGINT, keyboardInterruptHandler)
+    signal.signal(signal.SIGINT, ctrl_c_handler)
 
     wipe()
 
