@@ -52,10 +52,11 @@ class Color {
 
   /** Converts RGB to hex. */
   static toDrawingColor(color: RGB): RGB {
+    // This is a ~3X faster `Math.floor(Color.legalize(color[0]) * 255)`
     return [
-      Math.floor(Color.legalize(color[0]) * 255),
-      Math.floor(Color.legalize(color[1]) * 255),
-      Math.floor(Color.legalize(color[2]) * 255),
+      ((Color.legalize(color[0]) * 255) | 0),
+      ((Color.legalize(color[1]) * 255) | 0),
+      ((Color.legalize(color[2]) * 255) | 0),
     ] as RGB;
   }
 }

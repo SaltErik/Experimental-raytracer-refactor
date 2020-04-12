@@ -8,7 +8,7 @@ const init = (() => {
 
   const canvas: HTMLCanvasElement = document.createElement(`canvas`);
 
-  const SAME: number = 1024 as const;
+  const SAME: number = 2048 as const;
   canvas.width = SAME;
   canvas.height = SAME;
 
@@ -31,7 +31,7 @@ const init = (() => {
 })();
 
 function runSoon() {
-  setTimeout(benchmark.bind(null, init), 250);
+  setTimeout(benchmark.bind(null, init), 0);
 }
 
 window.addEventListener("load", runSoon);

@@ -1,13 +1,30 @@
 #!/usr/bin/env python3
 import http.server
-import socketserver
 import os
 import platform
 import signal
+import socketserver
 from tempfile import TemporaryDirectory
+
+PORT = 1337
+
+MIME_TYPES = {
+    '.manifest': 'text/cache-manifest',
+    '.html': 'text/html',
+    '.png': 'image/png',
+    '.jpg': 'image/jpg',
+    '.svg': 'image/svg+xml',
+    '.css': 'text/css',
+    '.js': 'application/x-javascript',
+    '.json': 'application/json',
+    '.xml': 'application/xml',
+    '.wasm': 'application/wasm',
+    '': 'application/octet-stream',  # Default
+}
 
 
 def open_browser():
+    print("Opening browser...")
     with TemporaryDirectory() as tempDir:
         url = "http://localhost:1337/dist"
         chrome_arguments = f"-incognito --new-window \"{url}\" --disable-extensions --user-data-dir=\"{tempDir}\""
@@ -19,9 +36,13 @@ def open_browser():
             os.system(f"google-chrome {chrome_arguments}")
 
 
-def ctrl_c_handler(signal, frame):
+def handle_ctrl_c(signal, frame):
     print(f"Shutting down...")
     exit(0)
+
+
+def register_ctrl_c_handler():
+    signal.signal(signal.SIGINT, handle_ctrl_c)
 
 
 def wipe_screen():
@@ -31,35 +52,21 @@ def wipe_screen():
         os.system("clear")
 
 
+def init_server():
+    Handler = http.server.SimpleHTTPRequestHandler
+    Handler.extensions_map = MIME_TYPES
+    return socketserver.TCPServer(("", PORT), Handler)
+
+
 if __name__ == "__main__":
-    signal.signal(signal.SIGINT, ctrl_c_handler)
+    register_ctrl_c_handler()
 
     wipe_screen()
 
-    PORT = 1337
+    # open_browser()
 
-    Handler = http.server.SimpleHTTPRequestHandler
-
-    Handler.extensions_map = {
-        '.manifest': 'text/cache-manifest',
-        '.html': 'text/html',
-        '.png': 'image/png',
-        '.jpg': 'image/jpg',
-        '.svg': 'image/svg+xml',
-        '.css': 'text/css',
-        '.js': 'application/x-javascript',
-        '.json': 'application/json',
-        '.xml': 'application/xml',
-        '.wasm': 'application/wasm',
-        '': 'application/octet-stream',  # Default
-    }
-
-    httpd = socketserver.TCPServer(("", PORT), Handler)
+    httpd = init_server()
 
     print(f"Serving from port {PORT}...")
-
-    print("Opening browser...")
-
-    open_browser()
 
     httpd.serve_forever()

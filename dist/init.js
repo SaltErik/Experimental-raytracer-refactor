@@ -6,7 +6,7 @@ const init = (() => {
     if (conflictingCanvas)
         throw new ReferenceError(`A canvas already exists!`);
     const canvas = document.createElement(`canvas`);
-    const SAME = 1024;
+    const SAME = 2048;
     canvas.width = SAME;
     canvas.height = SAME;
     if (canvas.width !== canvas.height || SAME !== canvas.width)
@@ -26,6 +26,6 @@ const init = (() => {
     return rayTracer.render.bind(rayTracer, context, scene);
 })();
 function runSoon() {
-    setTimeout(benchmark.bind(null, init), 250);
+    setTimeout(benchmark.bind(null, init), 0);
 }
 window.addEventListener("load", runSoon);

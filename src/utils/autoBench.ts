@@ -26,22 +26,22 @@ const tallyBenchmarkCounter = (): void => {
 
 // const findBestTime = (time: number) => {};
 
-const refreshPage = (): void => {
-  window.location.reload();
-};
+// const refreshPage = (): void => {
+//   window.location.reload();
+// };
 
-const benchAgainIn = (seconds: number = 5): void => {
-  const milliseconds = seconds ** 4;
-  console.log(`Rerunning benchmark in ${seconds} seconds...`);
-  setTimeout(refreshPage, milliseconds);
-};
+// const benchAgainIn = (seconds: number = 5): void => {
+//   const milliseconds = seconds ** 4;
+//   console.log(`Rerunning benchmark in ${seconds} seconds...`);
+//   setTimeout(refreshPage, milliseconds);
+// };
 
 const measure = (render: Function): number => {
   console.log(`Rendering...`);
   const before = performance.now();
   render();
   const after = performance.now();
-  const elapsed = Math.floor(after - before);
+  const elapsed = ((after - before) | 0);
   return elapsed;
 };
 
@@ -50,7 +50,7 @@ const benchmark = (render: Function) => {
   const timeTaken = measure(render);
   console.log(`Rendered in ${timeTaken} ms.`);
   incrementBenchmarkCounter();
-  benchAgainIn(10);
+  //benchAgainIn(10);
 };
 
 // Key results on: RESOLUTION, SCENE, rayTracer version number?

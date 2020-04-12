@@ -10,7 +10,7 @@ class Checkerboard {
         return this._isEven(position[2], position[0]) ? 0.1 : 0.7;
     }
     _isEven(z, x) {
-        return (Math.floor(z) + Math.floor(x)) % 2 !== 0;
+        return ((z | 0) + (x | 0)) % 2 !== 0;
     }
 }
 export { Checkerboard };
