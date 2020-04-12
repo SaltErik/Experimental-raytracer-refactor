@@ -34,9 +34,9 @@ class Color {
     }
     static toDrawingColor(color) {
         return [
-            ((Color.legalize(color[0]) * 255) | 0),
-            ((Color.legalize(color[1]) * 255) | 0),
-            ((Color.legalize(color[2]) * 255) | 0),
+            ~~(Color.legalize(color[0]) * 255),
+            ~~(Color.legalize(color[1]) * 255),
+            ~~(Color.legalize(color[2]) * 255),
         ];
     }
 }

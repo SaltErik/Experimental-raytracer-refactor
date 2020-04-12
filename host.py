@@ -63,7 +63,7 @@ if __name__ == "__main__":
 
     wipe_screen()
 
-    # open_browser()
+    open_browser()
 
     httpd = init_server()
 

@@ -18,8 +18,8 @@ class Checkerboard implements Surface {
 
   /** This function is awaiting a more reasonable name. */
   private _isEven(this: Checkerboard, z: number, x: number): boolean {
-    // This is a ~3X faster `(Math.floor(z) + Math.floor(x)) % 2 !== 0`
-    return ((z | 0) + (x | 0)) % 2 !== 0;
+    // `~~foo` is just a faster `Math.floor(foo)`.
+    return (~~z + ~~x) % 2 !== 0;
   }
 }
 
