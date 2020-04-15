@@ -18,10 +18,7 @@ class Checkerboard implements Surface {
   }
 
   private _isOdd(this: Checkerboard, z: number, x: number): boolean {
-    // `~~foo` is just a faster `Math.floor(foo)`.
-    const sum = ~~z + ~~x;
-    // `(foo & 1) === 1` is just a faster `foo % 2 !== 0`;
-    return (sum & 1) === 1;
+    return (Math.floor(z) + Math.floor(x)) % 2 !== 0;
   }
 }
 

@@ -31,14 +31,13 @@ class Color {
         ];
     }
     static legalize(d) {
-        // `this crime against nature` is just a faster version of `d > 1 ? 1 : d`
-        return (d >> 8) ? -d >>> 24 : d;
+        return d > 1 ? 1 : d;
     }
     static toDrawingColor(color) {
         return [
-            ~~(Color.legalize(color[0]) * 255),
-            ~~(Color.legalize(color[1]) * 255),
-            ~~(Color.legalize(color[2]) * 255),
+            Math.floor(Color.legalize(color[0]) * 255),
+            Math.floor(Color.legalize(color[1]) * 255),
+            Math.floor(Color.legalize(color[2]) * 255),
         ];
     }
 }

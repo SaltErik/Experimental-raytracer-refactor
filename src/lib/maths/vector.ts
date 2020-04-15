@@ -7,7 +7,7 @@ import { XYZ } from "../../typings/declarations";
 class Vector {
   private constructor() {}
 
-  static times(k: number, vector: XYZ): XYZ {
+  static times(this: typeof Vector, k: number, vector: XYZ): XYZ {
     return [
       k * vector[0],
       k * vector[1],
@@ -15,7 +15,7 @@ class Vector {
     ] as XYZ;
   }
 
-  static minus(first: XYZ, second: XYZ): XYZ {
+  static minus(this: typeof Vector, first: XYZ, second: XYZ): XYZ {
     return [
       first[0] - second[0],
       first[1] - second[1],
@@ -23,7 +23,7 @@ class Vector {
     ] as XYZ;
   }
 
-  static plus(first: XYZ, second: XYZ): XYZ {
+  static plus(this: typeof Vector, first: XYZ, second: XYZ): XYZ {
     return [
       first[0] + second[0],
       first[1] + second[1],
@@ -31,7 +31,7 @@ class Vector {
     ] as XYZ;
   }
 
-  static dotProduct(first: XYZ, second: XYZ): number {
+  static dotProduct(this: typeof Vector, first: XYZ, second: XYZ): number {
     const x = first[0] * second[0];
     const y = first[1] * second[1];
     const z = first[2] * second[2];
@@ -39,20 +39,20 @@ class Vector {
   }
 
   /** Magnitude is (in practice) the length of the vector. */
-  static magnitude(vector: XYZ): number {
+  static magnitude(this: typeof Vector, vector: XYZ): number {
     const x = vector[0] * vector[0];
     const y = vector[1] * vector[1];
     const z = vector[2] * vector[2];
     return Math.sqrt(x + y + z);
   }
 
-  static normal(vector: XYZ): XYZ {
+  static normal(this: typeof Vector, vector: XYZ): XYZ {
     const magnitude = Vector.magnitude(vector);
     const div = !magnitude ? Infinity : 1 / magnitude;
     return Vector.times(div, vector);
   }
 
-  static crossProduct(first: XYZ, second: XYZ): XYZ {
+  static crossProduct(this: typeof Vector, first: XYZ, second: XYZ): XYZ {
     return [
       first[1] * second[2] - first[2] * second[1],
       first[2] * second[0] - first[0] * second[2],

@@ -48,17 +48,15 @@ class Color {
   }
 
   static legalize(this: typeof Color, d: number): number {
-    // `the below crime against nature` is just a faster `d > 1 ? 1 : d`
-    return (d >> 8) ? -d >>> 24 : d;
+    return d > 1 ? 1 : d;
   }
 
   /** Converts RGB to hex. */
   static toDrawingColor(this: typeof Color, color: RGB): RGB {
-    // `~~foo` is just a faster `Math.floor(foo)`.
     return [
-      ~~(Color.legalize(color[0]) * 255),
-      ~~(Color.legalize(color[1]) * 255),
-      ~~(Color.legalize(color[2]) * 255),
+      Math.floor(Color.legalize(color[0]) * 255),
+      Math.floor(Color.legalize(color[1]) * 255),
+      Math.floor(Color.legalize(color[2]) * 255),
     ] as RGB;
   }
 }

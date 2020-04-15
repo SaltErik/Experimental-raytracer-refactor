@@ -27,7 +27,7 @@ def open_browser():
     print("Opening browser...")
     with TemporaryDirectory() as tempDir:
         url = "http://localhost:1337/dist"
-        chrome_arguments = f"-incognito --new-window \"{url}\" --disable-extensions --user-data-dir=\"{tempDir}\""
+        chrome_arguments = f"-incognito --new-window \"{url}\" --disable-extensions --user-data-dir=\"{tempDir}\" --enable-benchmarking"
 
         if platform.system() == "Windows":
             os.system(f"start \"\" /HIGH \"chrome\" {chrome_arguments}")
