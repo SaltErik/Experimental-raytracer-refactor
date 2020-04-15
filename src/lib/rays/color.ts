@@ -48,7 +48,8 @@ class Color {
   }
 
   static legalize(this: typeof Color, d: number): number {
-    return d > 1 ? 1 : d;
+    // `the below crime against nature` is just a faster `d > 1 ? 1 : d`
+    return (d >> 8) ? -d >>> 24 : d;
   }
 
   /** Converts RGB to hex. */

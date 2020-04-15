@@ -11,7 +11,8 @@ class Checkerboard {
         return this._isOdd(position[2], position[0]) ? 0.1 : 0.7;
     }
     _isOdd(z, x) {
-        return ((~~z + ~~x) & 1) === 1;
+        const sum = ~~z + ~~x;
+        return (sum & 1) === 1;
     }
 }
 export { Checkerboard };
