@@ -1,3 +1,4 @@
+"use strict";
 import { XYZ } from "../../typings/declarations";
 import { Vector } from "../maths/vector.js";
 

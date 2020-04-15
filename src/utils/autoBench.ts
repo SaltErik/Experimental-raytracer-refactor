@@ -1,3 +1,5 @@
+"use strict";
+
 const incrementBenchmarkCounter = (): void => {
   let timesRan: number | string | null = localStorage.getItem(`timesRan`);
 

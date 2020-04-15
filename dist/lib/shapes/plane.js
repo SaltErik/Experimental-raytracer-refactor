@@ -1,3 +1,4 @@
+"use strict";
 import { Vector } from "../maths/vector.js";
 class Plane {
     _normal;

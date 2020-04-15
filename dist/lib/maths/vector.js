@@ -1,3 +1,4 @@
+"use strict";
 class Vector {
     constructor() { }
     static times(k, vector) {

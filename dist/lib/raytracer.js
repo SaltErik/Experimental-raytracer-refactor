@@ -1,3 +1,4 @@
+"use strict";
 import { Vector } from "./maths/vector.js";
 import { Color } from "./rays/color.js";
 export class RayTracer {

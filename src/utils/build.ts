@@ -1,3 +1,4 @@
+"use strict";
 import { Light } from "../lib/rays/light.js";
 import { Camera } from "../lib/room/camera.js";
 import { Scene } from "../lib/room/scene.js";

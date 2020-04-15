@@ -1,3 +1,4 @@
+"use strict";
 class Color {
     static white = [1, 1, 1];
     static grey = [0.5, 0.5, 0.5];

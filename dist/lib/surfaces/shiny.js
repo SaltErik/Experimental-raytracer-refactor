@@ -1,3 +1,4 @@
+"use strict";
 import { Color } from "../rays/color.js";
 class Shiny {
     roughness = 250;

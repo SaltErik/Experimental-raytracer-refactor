@@ -1,3 +1,4 @@
+"use strict";
 import { XYZ } from "../../typings/declarations";
 
  /** Houses all methods for operating on objects carrying height-, width-, and depth-information.

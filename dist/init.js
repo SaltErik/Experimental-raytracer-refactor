@@ -1,3 +1,4 @@
+"use strict";
 import { RayTracer } from "./lib/raytracer.js";
 import { benchmark } from "./utils/autoBench.js";
 import { Build } from "./utils/build.js";

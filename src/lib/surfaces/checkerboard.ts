@@ -1,3 +1,4 @@
+"use strict";
 import { RGB, Surface, XYZ } from "../../typings/declarations";
 import { Color } from "../rays/color.js";
 
@@ -9,17 +10,18 @@ class Checkerboard implements Surface {
   constructor() {}
 
   diffuse(this: Checkerboard, position: XYZ): RGB {
-    return this._isEven(position[2], position[0]) ? Color.white : Color.black;
+    return this._isOdd(position[2], position[0]) ? Color.white : Color.black;
   }
 
   reflect(this: Checkerboard, position: XYZ): number {
-    return this._isEven(position[2], position[0]) ? 0.1 : 0.7;
+    return this._isOdd(position[2], position[0]) ? 0.1 : 0.7;
   }
 
-  /** This function is awaiting a more reasonable name. */
-  private _isEven(this: Checkerboard, z: number, x: number): boolean {
+  private _isOdd(this: Checkerboard, z: number, x: number): boolean {
     // `~~foo` is just a faster `Math.floor(foo)`.
-    return (~~z + ~~x) % 2 !== 0;
+    const sum = ~~z + ~~x;
+    // `(foo & 1) === 1` is just a faster `foo % 2 !== 0`;
+    return (sum & 1) === 1;
   }
 }
 

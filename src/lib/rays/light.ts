@@ -1,3 +1,4 @@
+"use strict";
 import { RGB, XYZ } from "../../typings/declarations";
 
 class Light {

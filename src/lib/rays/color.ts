@@ -1,3 +1,4 @@
+"use strict";
 import { RGB } from "../../typings/declarations";
 
 /** Houses all methods for operating on objects carrying red-, green- and blue-color information.
@@ -22,7 +23,7 @@ class Color {
 
   private constructor() {}
 
-  static scale(k: number, color: RGB): RGB {
+  static scale(this: typeof Color, k: number, color: RGB): RGB {
     return [
       k * color[0],
       k * color[1],
@@ -30,7 +31,7 @@ class Color {
     ] as RGB;
   }
 
-  static plus(first: RGB, second: RGB): RGB {
+  static plus(this: typeof Color, first: RGB, second: RGB): RGB {
     return [
       first[0] + second[0],
       first[1] + second[1],
@@ -38,7 +39,7 @@ class Color {
     ] as RGB;
   }
 
-  static times(first: RGB, second: RGB): RGB {
+  static times(this: typeof Color, first: RGB, second: RGB): RGB {
     return [
       first[0] * second[0],
       first[1] * second[1],
@@ -46,12 +47,12 @@ class Color {
     ] as RGB;
   }
 
-  static legalize(d: number): number {
+  static legalize(this: typeof Color, d: number): number {
     return d > 1 ? 1 : d;
   }
 
   /** Converts RGB to hex. */
-  static toDrawingColor(color: RGB): RGB {
+  static toDrawingColor(this: typeof Color, color: RGB): RGB {
     // `~~foo` is just a faster `Math.floor(foo)`.
     return [
       ~~(Color.legalize(color[0]) * 255),

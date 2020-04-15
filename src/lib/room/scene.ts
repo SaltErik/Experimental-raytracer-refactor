@@ -1,3 +1,4 @@
+"use strict";
 import { Thing } from "../../typings/declarations";
 import { Light } from "../rays/light.js";
 import { Camera } from "./camera.js";
